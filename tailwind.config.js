@@ -8,31 +8,54 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'fire-orange': '#FF6B35',
+        'fire-orange': '#FF4500',
         'fire-gold': '#FFD700',
-        'neon-orange': '#FF4500',
+        'ash-gray': '#1A1A1A',
         'dark-bg': '#0A0A0A',
-        'dark-card': '#1A1A1A',
-        'ash-gray': '#2D2D2D',
       },
       animation: {
-        'fire-flicker': 'fire-flicker 1.5s ease-in-out infinite alternate',
-        'glow': 'glow 2s ease-in-out infinite alternate',
         'float': 'float 3s ease-in-out infinite',
+        'pulse-fire': 'pulse-fire 2s ease-in-out infinite',
+        'glow': 'glow 2s ease-in-out infinite',
+        'burn': 'burn 1.5s ease-in-out infinite',
+        'shimmer': 'shimmer 2.5s ease-in-out infinite',
       },
       keyframes: {
-        'fire-flicker': {
-          '0%': { opacity: '0.8', transform: 'scale(1)' },
-          '100%': { opacity: '1', transform: 'scale(1.05)' },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
         },
-        'glow': {
-          '0%': { boxShadow: '0 0 20px rgba(255, 107, 53, 0.5)' },
-          '100%': { boxShadow: '0 0 30px rgba(255, 107, 53, 0.8)' },
+        'pulse-fire': {
+          '0%, 100%': {
+            transform: 'scale(1)',
+            filter: 'brightness(100%)',
+          },
+          '50%': {
+            transform: 'scale(1.05)',
+            filter: 'brightness(120%)',
+          },
         },
-        'float': {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
+        glow: {
+          '0%, 100%': {
+            textShadow: '0 0 4px #FF4500, 0 0 12px #FF4500, 0 0 16px #FF4500',
+          },
+          '50%': {
+            textShadow: '0 0 4px #FFD700, 0 0 12px #FFD700, 0 0 16px #FFD700',
+          },
         },
+        burn: {
+          '0%': { filter: 'brightness(100%) hue-rotate(0deg)' },
+          '50%': { filter: 'brightness(150%) hue-rotate(20deg)' },
+          '100%': { filter: 'brightness(100%) hue-rotate(0deg)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-1000px 0' },
+          '100%': { backgroundPosition: '1000px 0' },
+        },
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
     },
   },

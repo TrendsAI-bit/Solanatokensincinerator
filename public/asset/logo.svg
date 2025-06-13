@@ -1,0 +1,45 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer glow -->
+  <circle cx="90" cy="90" r="85" fill="url(#glow)" filter="url(#blur)" />
+  
+  <!-- Main flame -->
+  <path d="M90 30C90 30 60 70 60 100C60 130 90 140 90 140C90 140 120 130 120 100C120 70 90 30 90 30Z" fill="url(#flame)" />
+  
+  <!-- Inner flame -->
+  <path d="M90 50C90 50 70 80 70 100C70 120 90 125 90 125C90 125 110 120 110 100C110 80 90 50 90 50Z" fill="url(#innerFlame)" />
+  
+  <!-- Coin circle -->
+  <circle cx="90" cy="90" r="60" stroke="url(#coinGradient)" stroke-width="4" fill="none" />
+  
+  <!-- Definitions -->
+  <defs>
+    <!-- Glow gradient -->
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#FF4500" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#FF4500" stop-opacity="0" />
+    </radialGradient>
+    
+    <!-- Flame gradient -->
+    <linearGradient id="flame" x1="90" y1="30" x2="90" y2="140">
+      <stop offset="0%" stop-color="#FF4500" />
+      <stop offset="100%" stop-color="#FFD700" />
+    </linearGradient>
+    
+    <!-- Inner flame gradient -->
+    <linearGradient id="innerFlame" x1="90" y1="50" x2="90" y2="125">
+      <stop offset="0%" stop-color="#FFD700" />
+      <stop offset="100%" stop-color="#FF4500" />
+    </linearGradient>
+    
+    <!-- Coin gradient -->
+    <linearGradient id="coinGradient" x1="0" y1="0" x2="180" y2="180">
+      <stop offset="0%" stop-color="#FF4500" />
+      <stop offset="100%" stop-color="#FFD700" />
+    </linearGradient>
+    
+    <!-- Blur filter -->
+    <filter id="blur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="10" />
+    </filter>
+  </defs>
+</svg> 
