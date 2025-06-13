@@ -1,5 +1,6 @@
+"use client";
+
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import { Flame, Coins, History, TrendingUp } from 'lucide-react'
 
@@ -8,46 +9,26 @@ export default function Home() {
     <main className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex flex-col items-center justify-center text-center px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="absolute top-8"
-        >
+        <div className="absolute top-8 animate-float">
           <Image
             src="/asset/logo.png"
             alt="Solana Incinerator Logo"
             width={120}
             height={120}
-            className="animate-float"
           />
-        </motion.div>
+        </div>
         
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-5xl md:text-7xl font-bold mb-4"
-        >
+        <h1 className="text-5xl md:text-7xl font-bold mb-4">
           Solana Incinerator
-        </motion.h1>
+        </h1>
         
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-xl md:text-2xl text-gray-300 mb-8"
-        >
+        <p className="text-xl md:text-2xl text-gray-300 mb-8">
           Burn your bags. Earn from the ashes.
-        </motion.p>
+        </p>
         
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
+        <div>
           <WalletMultiButton className="btn-primary" />
-        </motion.div>
+        </div>
       </section>
 
       {/* How It Works Section */}

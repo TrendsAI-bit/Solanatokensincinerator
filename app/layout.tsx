@@ -1,15 +1,11 @@
-import type { Metadata } from 'next'
+'use client'
+
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { Providers } from './providers'
+import Providers from './providers'
 import '@solana/wallet-adapter-react-ui/styles.css'
 
 const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-  title: 'Solana Incinerator Token ($ASHED)',
-  description: 'Burn your bags. Earn from the ashes.',
-}
 
 export default function RootLayout({
   children,
