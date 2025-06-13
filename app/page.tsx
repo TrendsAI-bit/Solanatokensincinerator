@@ -1,15 +1,109 @@
 "use client";
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
 import { Flame, Coins, History, TrendingUp } from 'lucide-react'
+import { useWallet, useConnection } from '@solana/wallet-adapter-react';
+import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
+import { motion } from 'framer-motion';
+
+const fadeInUp = {
+  initial: {
+    opacity: 0,
+    y: 20
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6
+    }
+  }
+};
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+};
 
 export default function Home() {
+  const { publicKey, connected, sendTransaction } = useWallet();
+  const { connection } = useConnection();
+  const [balance, setBalance] = useState<number | null>(null);
+  const [tokens, setTokens] = useState<any[]>([]);
+  const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY;
+
+  const burnToken = async (mint: string) => {
+    if (!publicKey) return;
+
+    try {
+      // This is a placeholder for the actual burn logic.
+      // In a real scenario, you would create a transaction
+      // with the correct instructions to burn the token.
+      const transaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: publicKey,
+          toPubkey: new PublicKey("11111111111111111111111111111111"), // Burn address
+          lamports: 10000, // Placeholder amount
+        })
+      );
+
+      const signature = await sendTransaction(transaction, connection);
+      await connection.confirmTransaction(signature, 'processed');
+      alert(`Burned token with mint: ${mint}`);
+    } catch (error) {
+      console.error('Error burning token:', error);
+      alert('Error burning token. See console for details.');
+    }
+  };
+
+  useEffect(() => {
+    const fetchBalance = async () => {
+      if (publicKey) {
+        const bal = await connection.getBalance(publicKey);
+        setBalance(bal / LAMPORTS_PER_SOL);
+      }
+    };
+
+    const fetchTokens = async () => {
+      if (publicKey && HELIUS_API_KEY) {
+        try {
+          const response = await fetch(
+            `https://api.helius.xyz/v0/addresses/${publicKey.toString()}/balances?api-key=${HELIUS_API_KEY}`
+          );
+          const data = await response.json();
+          setTokens(data.tokens || []);
+        } catch (error) {
+          console.error('Error fetching tokens:', error);
+        }
+      }
+    };
+
+    if (connected) {
+      fetchBalance();
+      fetchTokens();
+    }
+  }, [publicKey, connected, connection, HELIUS_API_KEY]);
+
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-screen flex flex-col items-center justify-center text-center px-4">
-        <div className="mb-12 animate-float">
+      <motion.section 
+        className="relative h-screen flex flex-col items-center justify-center text-center px-4"
+        initial="initial"
+        animate="animate"
+        variants={staggerContainer}
+      >
+        <motion.div 
+          className="mb-12"
+          variants={fadeInUp}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
           <Image
             src="/logo.png"
             alt="Solana Incinerator Logo"
@@ -17,23 +111,64 @@ export default function Home() {
             height={200}
             className="rounded-full"
           />
-        </div>
+        </motion.div>
         
-        <h1 className="text-5xl md:text-7xl font-bold mb-4">
+        <motion.h1 
+          className="text-5xl md:text-7xl font-bold mb-4"
+          variants={fadeInUp}
+        >
           Solana Incinerator
-        </h1>
+        </motion.h1>
         
-        <p className="text-xl md:text-2xl text-gray-300 mb-8">
+        <motion.p 
+          className="text-xl md:text-2xl text-gray-300 mb-8"
+          variants={fadeInUp}
+        >
           Burn your bags. Earn from the ashes.
-        </p>
+        </motion.p>
         
-        <div>
+        <motion.div variants={fadeInUp}>
           <WalletMultiButton className="btn-primary" />
-        </div>
-      </section>
+          {connected && balance !== null && (
+            <p className="mt-4 text-gray-300">Balance: {balance.toFixed(4)} SOL</p>
+          )}
+        </motion.div>
+      </motion.section>
+
+      {/* Your Tokens Section */}
+      {connected && (
+        <section className="py-20 px-4 bg-dark-bg">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="section-title text-center">Your Tokens</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+              {tokens.length > 0 ? (
+                tokens.map((token) => (
+                  <div key={token.mint} className="card">
+                    <h3 className="text-xl font-bold mb-2">{token.tokenMetadata?.onchainMetadata?.metadata?.data?.name || 'Unknown Token'}</h3>
+                    <p className="text-gray-400 mb-4">Amount: {token.amount / (10 ** token.decimals)}</p>
+                    <button
+                      onClick={() => burnToken(token.mint)}
+                      className="btn-primary w-full"
+                    >
+                      Burn
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <p className="text-center col-span-full">No tokens found.</p>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* How It Works Section */}
-      <section className="py-20 px-4 bg-dark-bg">
+      <motion.section 
+        className="py-20 px-4 bg-dark-bg"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
         <div className="max-w-6xl mx-auto">
           <h2 className="section-title text-center">How It Works</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-12">
@@ -70,10 +205,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Live Burn Feed Section */}
-      <section className="py-20 px-4">
+      <motion.section 
+        className="py-20 px-4"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
         <div className="max-w-6xl mx-auto">
           <h2 className="section-title text-center">Live Burn Feed</h2>
           <div className="card">
@@ -92,10 +232,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Claim Tracker Section */}
-      <section className="py-20 px-4 bg-dark-bg">
+      <motion.section 
+        className="py-20 px-4 bg-dark-bg"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
         <div className="max-w-6xl mx-auto">
           <h2 className="section-title text-center">Your Burn Progress</h2>
           <div className="card">
@@ -111,10 +256,15 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Tokenomics Section */}
-      <section className="py-20 px-4">
+      <motion.section 
+        className="py-20 px-4"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+      >
         <div className="max-w-6xl mx-auto">
           <h2 className="section-title text-center">Tokenomics</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -130,7 +280,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Footer */}
       <footer className="py-12 px-4 bg-dark-bg border-t border-ash-gray">
