@@ -7,7 +7,7 @@ import { Flame, Coins, History, TrendingUp } from 'lucide-react'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import { motion } from 'framer-motion';
-import { ImageBackground } from '../components/ImageBackground';
+import { FireAnimation } from '../components/FireAnimation';
 
 const fadeInUp = {
   initial: {
@@ -91,8 +91,8 @@ export default function Home() {
   }, [publicKey, connected, connection, HELIUS_API_KEY]);
 
   return (
-    <main className="min-h-screen">
-      <ImageBackground />
+    <main className="min-h-screen bg-black text-gray-200">
+      <FireAnimation />
       {/* Hero Section */}
       <motion.section 
         className="relative h-screen flex flex-col items-center justify-center text-center px-4"
