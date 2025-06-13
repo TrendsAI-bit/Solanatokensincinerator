@@ -7,7 +7,7 @@ import { Flame, Coins, History, TrendingUp } from 'lucide-react'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import { motion } from 'framer-motion';
-import { VideoBackground } from '../components/VideoBackground';
+import { ImageBackground } from '../components/ImageBackground';
 
 const fadeInUp = {
   initial: {
@@ -92,7 +92,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <VideoBackground />
+      <ImageBackground />
       {/* Hero Section */}
       <motion.section 
         className="relative h-screen flex flex-col items-center justify-center text-center px-4"
