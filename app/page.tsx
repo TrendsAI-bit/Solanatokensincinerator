@@ -9,12 +9,13 @@ export default function Home() {
     <main className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-screen flex flex-col items-center justify-center text-center px-4">
-        <div className="absolute top-8 animate-float">
+        <div className="mb-12 animate-float">
           <Image
             src="/logo.png"
             alt="Solana Incinerator Logo"
-            width={120}
-            height={120}
+            width={200}
+            height={200}
+            className="rounded-full"
           />
         </div>
         
