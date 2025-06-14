@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        futuristic: ['Orbitron', 'sans-serif'],
+      },
       colors: {
         'fire-orange': '#FF6B35',
         'fire-gold': '#FFD700',
@@ -19,6 +22,7 @@ module.exports = {
         'fire-flicker': 'fire-flicker 1.5s ease-in-out infinite alternate',
         'glow': 'glow 2s ease-in-out infinite alternate',
         'float': 'float 3s ease-in-out infinite',
+        'red-glow': 'red-glow 2s ease-in-out infinite alternate',
       },
       keyframes: {
         'fire-flicker': {
@@ -32,6 +36,10 @@ module.exports = {
         'float': {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
+        },
+        'red-glow': {
+          '0%': { boxShadow: '0 0 10px 2px #ff003c, 0 0 40px 8px #ff003c33' },
+          '100%': { boxShadow: '0 0 30px 8px #ff003c, 0 0 60px 16px #ff003c55' },
         },
       },
     },

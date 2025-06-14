@@ -1,9 +1,9 @@
-import { Inter } from 'next/font/google'
+import { Orbitron } from 'next/font/google'
 import './globals.css'
 import { WalletContextProvider } from './providers'
 import '@solana/wallet-adapter-react-ui/styles.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const orbitron = Orbitron({ subsets: ['latin'], weight: ['400', '700'] })
 
 export default function RootLayout({
   children,
@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={orbitron.className}>
         <WalletContextProvider>
           {children}
         </WalletContextProvider>
