@@ -10,34 +10,48 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #0a0a23;
+  background-image: theme('backgroundImage.cyberpunk');
   min-height: 100vh;
   font-family: 'Orbitron', 'sans-serif';
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.glass-card {
+  @apply bg-glass-dark backdrop-blur-md rounded-2xl shadow-glass border border-white/10 p-8;
+}
+
+.solana-gradient {
+  @apply bg-gradient-to-r from-solana-purple to-solana-teal;
+}
+
+.neon-border {
+  box-shadow: 0 0 0 2px #9945FF, 0 0 16px 2px #14F195;
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-fire-orange hover:bg-neon-orange text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl animate-glow font-futuristic;
+    @apply solana-gradient text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-neon-teal focus:outline-none focus:ring-2 focus:ring-solana-teal font-futuristic;
+    box-shadow: 0 0 16px 2px #9945FF, 0 0 16px 2px #14F195;
   }
   
   .card {
-    @apply bg-dark-card rounded-xl p-6 shadow-lg border border-ash-gray hover:border-fire-orange transition-all duration-300 font-futuristic animate-red-glow;
+    @apply glass-card font-futuristic animate-gradient-move;
   }
   
   .section-title {
-    @apply text-3xl md:text-4xl font-bold text-white mb-4 font-futuristic animate-red-glow;
+    @apply text-4xl md:text-5xl font-bold text-white mb-4 font-futuristic animate-glitch;
   }
   
   .section-subtitle {
-    @apply text-xl text-gray-300 mb-8 font-futuristic;
+    @apply text-xl text-solana-teal mb-8 font-futuristic;
   }
   
   .red-glow {
     @apply animate-red-glow;
+  }
+  .glitch {
+    @apply animate-glitch;
   }
 } 
