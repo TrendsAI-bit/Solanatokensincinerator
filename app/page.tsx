@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
-import { Flame, Info, CheckCircle2, XCircle } from 'lucide-react'
+import { Flame, Info, CheckCircle2, XCircle, Zap } from 'lucide-react'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -15,7 +15,7 @@ const fadeInUp = {
   animate: { opacity: 1, y: 0, transition: { duration: 0.7 } },
 };
 
-const glassPanel = 'glass-card neon-border shadow-neon-purple';
+const glassPanel = 'glass-card cosmic-border shadow-stellar-glow';
 
 export default function Home() {
   const { publicKey, connected, sendTransaction } = useWallet();
@@ -86,33 +86,36 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-black text-gray-100 font-futuristic relative overflow-x-hidden">
-      {/* Animated cyberpunk background */}
-      <div className="fixed inset-0 -z-10 bg-cyberpunk animate-gradient-move" />
+    <main className="min-h-screen bg-cosmic-blue text-star-white font-orbitron relative overflow-x-hidden">
+      {/* Animated space background */}
+      <div className="fixed inset-0 -z-10 bg-space-nebula animate-cosmic-drift" />
+      <div className="fixed inset-0 -z-5 starfield-bg opacity-30" />
+      
       {/* Solana watermark */}
       <div className="fixed bottom-0 right-0 opacity-10 pointer-events-none select-none z-0">
         <Image src="/solana-logo.svg" alt="Solana" width={300} height={100} />
       </div>
+      
       {/* Top Bar */}
       <header className="flex items-center justify-between px-6 py-4 w-full z-20">
         <div className="flex items-center space-x-3">
-          <Image src="/logo.png" alt="Solana Incinerator Logo" width={48} height={48} className="rounded-full" />
+          <Image src="/logo.png" alt="Stellar Token Burner Logo" width={48} height={48} className="rounded-full animate-float" />
           <GlitchText
             speed={0.5}
             enableShadows={true}
             enableOnHover={true}
             className="text-2xl font-bold"
           >
-            Solana Incinerator
+            Stellar Incinerator
           </GlitchText>
         </div>
         <div className="flex items-center space-x-4">
-          <button className="text-solana-teal hover:text-solana-purple transition-colors" title="Info">
+          <button className="text-cosmic-cyan hover:text-stellar-purple transition-colors" title="Info">
             <Info size={24} />
           </button>
-          {/* Theme toggle placeholder */}
         </div>
       </header>
+      
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center pt-24 pb-12">
         <motion.h1 className="section-title" initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
@@ -122,50 +125,51 @@ export default function Home() {
             enableOnHover={true}
             className="section-title"
           >
-            Burn Solana Tokens with Confidence
+            Burn Solana Tokens Across the Galaxy
           </GlitchText>
         </motion.h1>
         <motion.p className="section-subtitle max-w-xl mx-auto" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
-          A premium, cyberpunk-inspired dApp for burning your Solana tokens. Fast, secure, and visually stunning.
+          A stellar, space-inspired dApp for incinerating your Solana tokens. Powered by cosmic energy, secured by the void, visually stunning like nebulae.
         </motion.p>
         <motion.div className="mt-6" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, duration: 0.6 }}>
           <WalletMultiButton className="btn-primary text-lg px-8 py-4" />
           {connected && balance !== null && (
-            <span className="block mt-2 text-solana-teal font-semibold">Balance: {balance.toFixed(4)} SOL</span>
+            <span className="block mt-2 text-cosmic-cyan font-semibold">Balance: {balance.toFixed(4)} SOL</span>
           )}
         </motion.div>
       </section>
+      
       {/* Main Form Section */}
       <section className="flex flex-col items-center justify-center min-h-[40vh] pb-16">
         <motion.div className={glassPanel + ' w-full max-w-lg mx-auto'} initial="initial" animate="animate" variants={fadeInUp}>
           <motion.h2 className="text-2xl font-bold mb-6 flex items-center gap-2 section-title" initial="initial" animate="animate" variants={fadeInUp}>
-            <Flame className="text-solana-teal animate-fire-flicker" /> Burn Tokens
+            <Zap className="text-cosmic-cyan animate-twinkle" /> Incinerate Tokens
           </motion.h2>
           <div className="mb-4">
-            <label className="block text-sm mb-1 text-solana-purple">Token Address</label>
+            <label className="block text-sm mb-1 text-stellar-purple">Token Address</label>
             <div className="relative">
               <input
                 name="address"
                 value={form.address}
                 onChange={handleInput}
                 placeholder="Enter token address..."
-                className="w-full p-3 rounded-lg bg-black/60 border border-solana-purple focus:outline-none focus:ring-2 focus:ring-solana-teal text-lg placeholder-gray-500"
+                className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-lg placeholder-gray-400"
                 autoComplete="off"
               />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-solana-teal">
-                <Flame size={20} />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-cosmic-cyan">
+                <Zap size={20} />
               </span>
             </div>
           </div>
           <div className="mb-6">
-            <label className="block text-sm mb-1 text-solana-purple">Amount</label>
+            <label className="block text-sm mb-1 text-stellar-purple">Amount</label>
             <input
               name="amount"
               value={form.amount}
               onChange={handleInput}
               placeholder="0.0"
               type="number"
-              className="w-full p-3 rounded-lg bg-black/60 border border-solana-purple focus:outline-none focus:ring-2 focus:ring-solana-teal text-lg placeholder-gray-500"
+              className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-lg placeholder-gray-400"
               autoComplete="off"
             />
           </div>
@@ -182,10 +186,11 @@ export default function Home() {
             onClick={burnToken}
             disabled={burning}
           >
-            <span>Burn Tokens</span>
-            <Flame className="text-white animate-fire-flicker" />
+            <span>Incinerate Tokens</span>
+            <Zap className="text-white animate-twinkle" />
           </motion.button>
         </motion.div>
+        
         {/* Confirmation/Result Section */}
         <AnimatePresence>
           {burnResult && (
@@ -198,9 +203,9 @@ export default function Home() {
             >
               {burnResult.success ? (
                 <>
-                  <CheckCircle2 className="mx-auto text-green-400 mb-2" size={40} />
+                  <CheckCircle2 className="mx-auto text-plasma-green mb-2" size={40} />
                   <div className="text-xl font-bold mb-2">{burnResult.message}</div>
-                  <div className="text-sm text-gray-400">Transaction ID: <span className="text-solana-teal">{burnResult.txid}</span></div>
+                  <div className="text-sm text-gray-400">Transaction ID: <span className="text-cosmic-cyan">{burnResult.txid}</span></div>
                 </>
               ) : (
                 <>
@@ -212,14 +217,15 @@ export default function Home() {
           )}
         </AnimatePresence>
       </section>
+      
       {/* Footer */}
-      <footer className="py-10 px-4 text-center text-gray-500 text-sm">
+      <footer className="py-10 px-4 text-center text-gray-400 text-sm">
         <div className="flex flex-col md:flex-row items-center justify-center gap-2">
-          <span>Powered by <span className="text-solana-purple font-bold">fire</span>. Built for <span className="text-solana-teal font-bold">redemption</span>.</span>
+          <span>Powered by <span className="text-stellar-purple font-bold">cosmic energy</span>. Built for <span className="text-cosmic-cyan font-bold">stellar exploration</span>.</span>
           <span className="hidden md:inline">|</span>
           <span>Contract: <span className="text-gray-400">0x1234...5678</span></span>
         </div>
-        <div className="mt-2">© 2024 Solana Incinerator. All rights reserved.</div>
+        <div className="mt-2">© 2024 Stellar Incinerator. All rights reserved.</div>
       </footer>
     </main>
   )

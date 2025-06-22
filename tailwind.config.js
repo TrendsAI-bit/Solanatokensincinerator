@@ -9,64 +9,68 @@ module.exports = {
     extend: {
       fontFamily: {
         futuristic: ['Orbitron', 'sans-serif'],
+        orbitron: ['Orbitron', 'sans-serif'],
       },
       colors: {
-        'fire-orange': '#FF6B35',
-        'fire-gold': '#FFD700',
-        'neon-orange': '#FF4500',
-        'dark-bg': '#0A0A0A',
-        'dark-card': '#1A1A1A',
-        'ash-gray': '#2D2D2D',
+        // Space-themed colors
+        'cosmic-blue': '#0B1426',
+        'deep-space': '#0A0A23',
+        'stellar-purple': '#6B46C1',
+        'nebula-pink': '#EC4899',
+        'cosmic-cyan': '#06B6D4',
+        'star-white': '#F8FAFC',
+        'meteor-orange': '#F59E0B',
+        'galaxy-indigo': '#4338CA',
+        'void-black': '#000000',
+        'plasma-green': '#10B981',
+        
+        // Legacy Solana colors for compatibility
         'solana-purple': '#9945FF',
         'solana-teal': '#14F195',
-        'glass-dark': 'rgba(20, 20, 40, 0.7)',
+        'glass-dark': 'rgba(11, 20, 38, 0.7)',
       },
       backgroundImage: {
         'solana-gradient': 'linear-gradient(90deg, #9945FF 0%, #14F195 100%)',
-        'cyberpunk': 'radial-gradient(ellipse at 80% 20%, #9945FF33 0%, transparent 70%), radial-gradient(ellipse at 20% 80%, #14F19533 0%, transparent 70%)',
+        'cosmic-gradient': 'linear-gradient(135deg, #0B1426 0%, #4338CA 50%, #EC4899 100%)',
+        'space-nebula': 'radial-gradient(ellipse at 30% 20%, #6B46C133 0%, transparent 70%), radial-gradient(ellipse at 70% 80%, #EC489933 0%, transparent 70%), radial-gradient(ellipse at 50% 50%, #06B6D433 0%, transparent 70%)',
+        'starfield': 'radial-gradient(2px 2px at 20px 30px, #F8FAFC, transparent), radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent), radial-gradient(1px 1px at 90px 40px, #F8FAFC, transparent), radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), transparent), radial-gradient(2px 2px at 160px 30px, #F8FAFC, transparent)',
       },
       boxShadow: {
-        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.37)',
-        'neon-purple': '0 0 16px 2px #9945FF',
-        'neon-teal': '0 0 16px 2px #14F195',
-        'glow-red': '0 0 24px 4px #ff003c',
+        'glass': '0 8px 32px 0 rgba(11, 20, 38, 0.37)',
+        'cosmic-glow': '0 0 20px 4px rgba(107, 70, 193, 0.5)',
+        'stellar-glow': '0 0 16px 2px #6B46C1',
+        'nebula-glow': '0 0 16px 2px #EC4899',
+        'plasma-glow': '0 0 24px 4px #10B981',
       },
       animation: {
-        'fire-flicker': 'fire-flicker 1.5s ease-in-out infinite alternate',
-        'glow': 'glow 2s ease-in-out infinite alternate',
-        'float': 'float 3s ease-in-out infinite',
-        'red-glow': 'red-glow 2s ease-in-out infinite alternate',
-        'glitch': 'glitch 1s infinite linear alternate-reverse',
-        'gradient-move': 'gradient-move 8s ease-in-out infinite',
+        'pulse-slow': 'pulse 3s ease-in-out infinite',
+        'float': 'float 6s ease-in-out infinite',
+        'orbit': 'orbit 20s linear infinite',
+        'twinkle': 'twinkle 2s ease-in-out infinite alternate',
+        'cosmic-drift': 'cosmic-drift 15s ease-in-out infinite',
+        'stellar-pulse': 'stellar-pulse 4s ease-in-out infinite',
       },
       keyframes: {
-        'fire-flicker': {
-          '0%': { opacity: '0.8', transform: 'scale(1)' },
-          '100%': { opacity: '1', transform: 'scale(1.05)' },
-        },
-        'glow': {
-          '0%': { boxShadow: '0 0 20px rgba(255, 107, 53, 0.5)' },
-          '100%': { boxShadow: '0 0 30px rgba(255, 107, 53, 0.8)' },
-        },
         'float': {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
+          '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+          '50%': { transform: 'translateY(-20px) rotate(5deg)' },
         },
-        'red-glow': {
-          '0%': { boxShadow: '0 0 10px 2px #ff003c, 0 0 40px 8px #ff003c33' },
-          '100%': { boxShadow: '0 0 30px 8px #ff003c, 0 0 60px 16px #ff003c55' },
+        'orbit': {
+          '0%': { transform: 'rotate(0deg) translateX(100px) rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg) translateX(100px) rotate(-360deg)' },
         },
-        'glitch': {
-          '0%': { textShadow: '2px 0 #9945FF, -2px 0 #14F195' },
-          '20%': { textShadow: '-2px 0 #9945FF, 2px 0 #14F195' },
-          '40%': { textShadow: '2px 2px #9945FF, -2px -2px #14F195' },
-          '60%': { textShadow: '-2px 2px #9945FF, 2px -2px #14F195' },
-          '80%': { textShadow: '2px 0 #9945FF, -2px 0 #14F195' },
-          '100%': { textShadow: '0 0 #9945FF, 0 0 #14F195' },
+        'twinkle': {
+          '0%': { opacity: '0.3', transform: 'scale(1)' },
+          '100%': { opacity: '1', transform: 'scale(1.2)' },
         },
-        'gradient-move': {
+        'cosmic-drift': {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
+        },
+        'stellar-pulse': {
+          '0%': { boxShadow: '0 0 10px 2px rgba(107, 70, 193, 0.3)' },
+          '50%': { boxShadow: '0 0 30px 8px rgba(107, 70, 193, 0.6), 0 0 60px 16px rgba(236, 72, 153, 0.3)' },
+          '100%': { boxShadow: '0 0 10px 2px rgba(107, 70, 193, 0.3)' },
         },
       },
     },

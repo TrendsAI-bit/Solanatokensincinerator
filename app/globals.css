@@ -2,20 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Orbitron Font Face Declarations */
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/Orbitron-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/Orbitron-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/Orbitron-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/Orbitron-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/Orbitron-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('/Orbitron-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 10, 10, 10;
+  --foreground-rgb: 248, 250, 252;
+  --background-start-rgb: 11, 20, 38;
   --background-end-rgb: 0, 0, 0;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: #0a0a23;
-  background-image: theme('backgroundImage.cyberpunk');
+  background: #0B1426;
+  background-image: theme('backgroundImage.space-nebula'), theme('backgroundImage.starfield');
   min-height: 100vh;
   font-family: 'Orbitron', 'sans-serif';
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-size: cover, 200px 200px;
+  background-repeat: no-repeat, repeat;
+  background-attachment: fixed, fixed;
 }
 
 .glass-card {
@@ -23,35 +73,39 @@ body {
 }
 
 .solana-gradient {
-  @apply bg-gradient-to-r from-solana-purple to-solana-teal;
+  @apply bg-gradient-to-r from-stellar-purple to-cosmic-cyan;
 }
 
-.neon-border {
-  box-shadow: 0 0 0 2px #9945FF, 0 0 16px 2px #14F195;
+.cosmic-border {
+  box-shadow: 0 0 0 2px #6B46C1, 0 0 16px 2px #EC4899;
 }
 
 @layer components {
   .btn-primary {
-    @apply solana-gradient text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-neon-teal focus:outline-none focus:ring-2 focus:ring-solana-teal font-futuristic;
-    box-shadow: 0 0 16px 2px #9945FF, 0 0 16px 2px #14F195;
+    @apply bg-gradient-to-r from-stellar-purple to-nebula-pink text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-stellar-glow focus:outline-none focus:ring-2 focus:ring-stellar-purple font-orbitron;
+    box-shadow: 0 0 16px 2px rgba(107, 70, 193, 0.5), 0 0 16px 2px rgba(236, 72, 153, 0.3);
   }
   
   .card {
-    @apply glass-card font-futuristic animate-gradient-move;
+    @apply glass-card font-orbitron animate-cosmic-drift;
   }
   
   .section-title {
-    @apply text-4xl md:text-5xl font-bold text-white mb-4 font-futuristic animate-glitch;
+    @apply text-4xl md:text-5xl font-bold text-star-white mb-4 font-orbitron animate-stellar-pulse;
   }
   
   .section-subtitle {
-    @apply text-xl text-solana-teal mb-8 font-futuristic;
+    @apply text-xl text-cosmic-cyan mb-8 font-orbitron;
   }
   
-  .red-glow {
-    @apply animate-red-glow;
+  .cosmic-glow {
+    @apply animate-stellar-pulse;
   }
-  .glitch {
-    @apply animate-glitch;
+  
+  .starfield-bg {
+    background-image: theme('backgroundImage.starfield');
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    animation: twinkle 3s ease-in-out infinite alternate;
   }
 } 
