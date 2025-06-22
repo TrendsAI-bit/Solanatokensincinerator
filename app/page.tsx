@@ -55,7 +55,7 @@ export default function Home() {
   const [formError, setFormError] = useState('');
   const [ashBalance, setAshBalance] = useState(0);
   const [burnLog, setBurnLog] = useState<BurnLogEntry[]>([]);
-  const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY;
+  const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY || 'd966b6f9-d9d7-4e34-a109-2cf782d34e87';
 
   useEffect(() => {
     if (!connected || !publicKey) return;
@@ -70,10 +70,48 @@ export default function Home() {
     const fetchTokens = async () => {
       if (publicKey) {
         try {
-          // Get token accounts using SPL Token program
+          console.log('Fetching tokens for wallet:', publicKey.toString());
+          
+          // Method 1: Try Helius API first
+          if (HELIUS_API_KEY) {
+            try {
+              const heliusResponse = await fetch(
+                `https://api.helius.xyz/v0/addresses/${publicKey.toString()}/balances?api-key=${HELIUS_API_KEY}`
+              );
+              
+              if (heliusResponse.ok) {
+                const heliusData = await heliusResponse.json();
+                console.log('Helius API response:', heliusData);
+                
+                if (heliusData.tokens && heliusData.tokens.length > 0) {
+                  const heliusTokens: TokenAccount[] = heliusData.tokens
+                    .filter((token: any) => token.amount > 0)
+                    .map((token: any) => ({
+                      mint: new PublicKey(token.mint),
+                      amount: parseFloat(token.amount),
+                      decimals: token.decimals || 6,
+                      symbol: token.symbol || 'Unknown',
+                      name: token.name || 'Unknown Token',
+                      logoURI: token.logoURI
+                    }));
+                  
+                  console.log('Parsed Helius tokens:', heliusTokens);
+                  setTokens(heliusTokens);
+                  return; // Exit early if Helius worked
+                }
+              }
+            } catch (heliusError) {
+              console.log('Helius API failed, trying direct RPC:', heliusError);
+            }
+          }
+
+          // Method 2: Fallback to direct RPC call
+          console.log('Using direct RPC to fetch token accounts...');
           const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
             programId: TOKEN_PROGRAM_ID,
           });
+
+          console.log('Raw token accounts:', tokenAccounts.value.length);
 
           const parsedTokens: TokenAccount[] = tokenAccounts.value
             .map((acc) => {
@@ -81,15 +119,22 @@ export default function Home() {
               const mint = new PublicKey(info.mint);
               const amount = Number(info.tokenAmount.uiAmount);
               const decimals = info.tokenAmount.decimals;
+              
+              console.log(`Token: ${mint.toString()}, Amount: ${amount}, Decimals: ${decimals}`);
+              
               return { mint, amount, decimals };
             })
             .filter((t) => t.amount > 0);
 
-          // Try to get token metadata from Helius if available
+          console.log('Parsed tokens with balance > 0:', parsedTokens.length);
+
+          // Try to get token metadata for the tokens we found
           if (HELIUS_API_KEY && parsedTokens.length > 0) {
             try {
               const mints = parsedTokens.map(t => t.mint.toString());
-              const response = await fetch(
+              console.log('Fetching metadata for mints:', mints);
+              
+              const metadataResponse = await fetch(
                 `https://api.helius.xyz/v0/token-metadata?api-key=${HELIUS_API_KEY}`,
                 {
                   method: 'POST',
@@ -97,25 +142,52 @@ export default function Home() {
                   body: JSON.stringify({ mintAccounts: mints }),
                 }
               );
-              const metadata = await response.json();
               
-              // Merge metadata with token info
-              parsedTokens.forEach((token, index) => {
-                const meta = metadata.find((m: any) => m.account === token.mint.toString());
-                if (meta) {
-                  token.symbol = meta.onChainMetadata?.metadata?.data?.symbol || 'Unknown';
-                  token.name = meta.onChainMetadata?.metadata?.data?.name || 'Unknown Token';
-                  token.logoURI = meta.offChainMetadata?.metadata?.image;
+              if (metadataResponse.ok) {
+                const metadata = await metadataResponse.json();
+                console.log('Token metadata:', metadata);
+                
+                // Merge metadata with token info
+                parsedTokens.forEach((token) => {
+                  const meta = metadata.find((m: any) => m.account === token.mint.toString());
+                  if (meta?.onChainMetadata?.metadata?.data) {
+                    token.symbol = meta.onChainMetadata.metadata.data.symbol || 'Unknown';
+                    token.name = meta.onChainMetadata.metadata.data.name || 'Unknown Token';
+                  }
+                  if (meta?.offChainMetadata?.metadata?.image) {
+                    token.logoURI = meta.offChainMetadata.metadata.image;
+                  }
+                  
+                  // Fallback: use first few characters of mint as symbol if no metadata
+                  if (!token.symbol || token.symbol === 'Unknown') {
+                    token.symbol = token.mint.toString().slice(0, 4).toUpperCase();
+                  }
+                });
+              }
+            } catch (metadataError) {
+              console.log('Could not fetch token metadata:', metadataError);
+              // Add fallback symbols for tokens without metadata
+              parsedTokens.forEach((token) => {
+                if (!token.symbol) {
+                  token.symbol = token.mint.toString().slice(0, 4).toUpperCase();
+                  token.name = `Token ${token.symbol}`;
                 }
               });
-            } catch (error) {
-              console.log('Could not fetch token metadata:', error);
             }
+          } else {
+            // Add fallback symbols when no API key
+            parsedTokens.forEach((token) => {
+              token.symbol = token.mint.toString().slice(0, 4).toUpperCase();
+              token.name = `Token ${token.symbol}`;
+            });
           }
 
+          console.log('Final parsed tokens:', parsedTokens);
           setTokens(parsedTokens);
+
         } catch (error) {
           console.error('Error fetching tokens:', error);
+          setFormError('Failed to load tokens. Please try again.');
         }
       }
     };
@@ -302,7 +374,9 @@ export default function Home() {
             <>
               {/* Token Selector */}
               <div className="mb-4">
-                <label className="block text-sm mb-1 text-stellar-purple">Select Token</label>
+                <label className="block text-sm mb-1 text-stellar-purple">
+                  Select Token {tokens.length > 0 && <span className="text-cosmic-cyan">({tokens.length} found)</span>}
+                </label>
                 <select
                   className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-lg"
                   onChange={(e) => {
@@ -312,7 +386,9 @@ export default function Home() {
                   }}
                   value={selectedToken?.mint.toString() || ""}
                 >
-                  <option value="" disabled>Choose a token to burn</option>
+                  <option value="" disabled>
+                    {tokens.length === 0 ? 'Loading tokens...' : 'Choose a token to burn'}
+                  </option>
                   {tokens.map((token, i) => (
                     <option key={i} value={token.mint.toString()}>
                       {token.symbol || token.name || `${token.mint.toString().slice(0, 4)}...${token.mint.toString().slice(-4)}`} 
@@ -320,6 +396,11 @@ export default function Home() {
                     </option>
                   ))}
                 </select>
+                {tokens.length === 0 && connected && (
+                  <div className="text-sm text-gray-400 mt-1">
+                    No tokens found in your wallet or still loading...
+                  </div>
+                )}
               </div>
 
               {/* Amount Input */}
