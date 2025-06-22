@@ -8,6 +8,7 @@ import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FireAnimation } from '../components/FireAnimation';
+import GlitchText from '../components/GlitchText';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -96,7 +97,14 @@ export default function Home() {
       <header className="flex items-center justify-between px-6 py-4 w-full z-20">
         <div className="flex items-center space-x-3">
           <Image src="/logo.png" alt="Solana Incinerator Logo" width={48} height={48} className="rounded-full" />
-          <span className="text-2xl font-bold glitch">Solana Incinerator</span>
+          <GlitchText
+            speed={0.5}
+            enableShadows={true}
+            enableOnHover={true}
+            className="text-2xl font-bold"
+          >
+            Solana Incinerator
+          </GlitchText>
         </div>
         <div className="flex items-center space-x-4">
           <button className="text-solana-teal hover:text-solana-purple transition-colors" title="Info">
@@ -107,8 +115,15 @@ export default function Home() {
       </header>
       {/* Hero Section */}
       <section className="flex flex-col items-center justify-center text-center pt-24 pb-12">
-        <motion.h1 className="section-title glitch" initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-          Burn Solana Tokens with Confidence
+        <motion.h1 className="section-title" initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+          <GlitchText
+            speed={1}
+            enableShadows={true}
+            enableOnHover={true}
+            className="section-title"
+          >
+            Burn Solana Tokens with Confidence
+          </GlitchText>
         </motion.h1>
         <motion.p className="section-subtitle max-w-xl mx-auto" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
           A premium, cyberpunk-inspired dApp for burning your Solana tokens. Fast, secure, and visually stunning.
