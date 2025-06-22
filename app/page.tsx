@@ -43,6 +43,39 @@ interface BurnLogEntry {
   timestamp: number;
 }
 
+// Function to get a better token name based on common patterns
+function getTokenDisplayName(mint: string, symbol?: string, name?: string) {
+  // Check for common token patterns
+  const mintStr = mint.toString();
+  
+  // Well-known token mints (you can expand this list)
+  const knownTokens: { [key: string]: { symbol: string; name: string } } = {
+    'EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v': { symbol: 'USDC', name: 'USD Coin' },
+    'Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB': { symbol: 'USDT', name: 'Tether USD' },
+    'So11111111111111111111111111111111111111112': { symbol: 'SOL', name: 'Wrapped SOL' },
+    // Add more known tokens here
+  };
+  
+  if (knownTokens[mintStr]) {
+    return knownTokens[mintStr];
+  }
+  
+  // Use provided symbol/name if available
+  if (symbol && symbol !== 'Unknown') {
+    return { 
+      symbol, 
+      name: name && name !== 'Unknown Token' ? name : `${symbol} Token` 
+    };
+  }
+  
+  // Generate from mint address
+  const shortMint = mintStr.slice(0, 8);
+  return {
+    symbol: `TOKEN_${mintStr.slice(0, 4).toUpperCase()}`,
+    name: `Token ${shortMint}...${mintStr.slice(-4)}`
+  };
+}
+
 export default function Home() {
   const { publicKey, connected, sendTransaction } = useWallet();
   const { connection } = useConnection();
@@ -86,14 +119,17 @@ export default function Home() {
                 if (heliusData.tokens && heliusData.tokens.length > 0) {
                   const heliusTokens: TokenAccount[] = heliusData.tokens
                     .filter((token: any) => token.amount > 0)
-                    .map((token: any) => ({
-                      mint: new PublicKey(token.mint),
-                      amount: parseFloat(token.amount),
-                      decimals: token.decimals || 6,
-                      symbol: token.symbol || 'Unknown',
-                      name: token.name || 'Unknown Token',
-                      logoURI: token.logoURI
-                    }));
+                    .map((token: any) => {
+                      const displayName = getTokenDisplayName(token.mint, token.symbol, token.name);
+                      return {
+                        mint: new PublicKey(token.mint),
+                        amount: parseFloat(token.amount),
+                        decimals: token.decimals || 6,
+                        symbol: displayName.symbol,
+                        name: displayName.name,
+                        logoURI: token.logoURI
+                      };
+                    });
                   
                   console.log('Parsed Helius tokens:', heliusTokens);
                   setTokens(heliusTokens);
@@ -150,17 +186,28 @@ export default function Home() {
                 // Merge metadata with token info
                 parsedTokens.forEach((token) => {
                   const meta = metadata.find((m: any) => m.account === token.mint.toString());
+                  console.log(`Processing token ${token.mint.toString()}:`, meta);
+                  
                   if (meta?.onChainMetadata?.metadata?.data) {
-                    token.symbol = meta.onChainMetadata.metadata.data.symbol || 'Unknown';
-                    token.name = meta.onChainMetadata.metadata.data.name || 'Unknown Token';
-                  }
-                  if (meta?.offChainMetadata?.metadata?.image) {
-                    token.logoURI = meta.offChainMetadata.metadata.image;
+                    const onChainData = meta.onChainMetadata.metadata.data;
+                    token.symbol = onChainData.symbol || token.symbol;
+                    token.name = onChainData.name || token.name;
+                    console.log(`Set symbol: ${token.symbol}, name: ${token.name}`);
                   }
                   
-                  // Fallback: use first few characters of mint as symbol if no metadata
+                  if (meta?.offChainMetadata?.metadata) {
+                    const offChainData = meta.offChainMetadata.metadata;
+                    token.symbol = token.symbol || offChainData.symbol;
+                    token.name = token.name || offChainData.name;
+                    token.logoURI = offChainData.image || token.logoURI;
+                    console.log(`Updated from off-chain - symbol: ${token.symbol}, name: ${token.name}`);
+                  }
+                  
+                  // Final fallback: use mint address parts if still no good name
                   if (!token.symbol || token.symbol === 'Unknown') {
-                    token.symbol = token.mint.toString().slice(0, 4).toUpperCase();
+                    const displayName = getTokenDisplayName(token.mint.toString(), token.symbol, token.name);
+                    token.symbol = displayName.symbol;
+                    token.name = displayName.name;
                   }
                 });
               }
@@ -169,16 +216,18 @@ export default function Home() {
               // Add fallback symbols for tokens without metadata
               parsedTokens.forEach((token) => {
                 if (!token.symbol) {
-                  token.symbol = token.mint.toString().slice(0, 4).toUpperCase();
-                  token.name = `Token ${token.symbol}`;
+                  const displayName = getTokenDisplayName(token.mint.toString(), token.symbol, token.name);
+                  token.symbol = displayName.symbol;
+                  token.name = displayName.name;
                 }
               });
             }
           } else {
             // Add fallback symbols when no API key
             parsedTokens.forEach((token) => {
-              token.symbol = token.mint.toString().slice(0, 4).toUpperCase();
-              token.name = `Token ${token.symbol}`;
+              const displayName = getTokenDisplayName(token.mint.toString(), token.symbol, token.name);
+              token.symbol = displayName.symbol;
+              token.name = displayName.name;
             });
           }
 
