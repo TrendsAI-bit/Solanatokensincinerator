@@ -108,26 +108,31 @@ export default function Home() {
           // Method 1: Try Helius API first
           if (HELIUS_API_KEY) {
             try {
+              console.log('Trying Helius balances API...');
               const heliusResponse = await fetch(
                 `https://api.helius.xyz/v0/addresses/${publicKey.toString()}/balances?api-key=${HELIUS_API_KEY}`
               );
               
               if (heliusResponse.ok) {
                 const heliusData = await heliusResponse.json();
-                console.log('Helius API response:', heliusData);
+                console.log('Helius balances response:', heliusData);
                 
                 if (heliusData.tokens && heliusData.tokens.length > 0) {
                   const heliusTokens: TokenAccount[] = heliusData.tokens
                     .filter((token: any) => token.amount > 0)
                     .map((token: any) => {
-                      const displayName = getTokenDisplayName(token.mint, token.symbol, token.name);
+                      console.log('Processing Helius token:', token);
+                      // Use the symbol/name from Helius if available
+                      const symbol = token.symbol || token.ticker || `TOKEN_${token.mint.slice(0, 4).toUpperCase()}`;
+                      const name = token.name || symbol || `Token ${token.mint.slice(0, 8)}`;
+                      
                       return {
                         mint: new PublicKey(token.mint),
                         amount: parseFloat(token.amount),
                         decimals: token.decimals || 6,
-                        symbol: displayName.symbol,
-                        name: displayName.name,
-                        logoURI: token.logoURI
+                        symbol: symbol,
+                        name: name,
+                        logoURI: token.logoURI || token.image
                       };
                     });
                   
@@ -137,7 +142,7 @@ export default function Home() {
                 }
               }
             } catch (heliusError) {
-              console.log('Helius API failed, trying direct RPC:', heliusError);
+              console.log('Helius balances API failed, trying token metadata API:', heliusError);
             }
           }
 
@@ -170,47 +175,89 @@ export default function Home() {
               const mints = parsedTokens.map(t => t.mint.toString());
               console.log('Fetching metadata for mints:', mints);
               
-              const metadataResponse = await fetch(
-                `https://api.helius.xyz/v0/token-metadata?api-key=${HELIUS_API_KEY}`,
-                {
+              // Try multiple metadata endpoints
+              const metadataPromises = [
+                // Method 1: Helius token metadata
+                fetch(`https://api.helius.xyz/v0/token-metadata?api-key=${HELIUS_API_KEY}`, {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ mintAccounts: mints }),
+                }),
+                // Method 2: Helius DAS API for better metadata
+                fetch(`https://api.helius.xyz/v0/tokens/metadata?api-key=${HELIUS_API_KEY}`, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ mintAccounts: mints }),
+                })
+              ];
+
+              const results = await Promise.allSettled(metadataPromises);
+              let metadata: any[] = [];
+
+              // Process results from different APIs
+              for (let i = 0; i < results.length; i++) {
+                const result = results[i];
+                if (result.status === 'fulfilled' && result.value.ok) {
+                  const data = await result.value.json();
+                  console.log(`Metadata API ${i + 1} response:`, data);
+                  if (Array.isArray(data)) {
+                    metadata = metadata.concat(data);
+                  }
                 }
-              );
-              
-              if (metadataResponse.ok) {
-                const metadata = await metadataResponse.json();
-                console.log('Token metadata:', metadata);
-                
-                // Merge metadata with token info
-                parsedTokens.forEach((token) => {
-                  const meta = metadata.find((m: any) => m.account === token.mint.toString());
-                  console.log(`Processing token ${token.mint.toString()}:`, meta);
-                  
-                  if (meta?.onChainMetadata?.metadata?.data) {
-                    const onChainData = meta.onChainMetadata.metadata.data;
-                    token.symbol = onChainData.symbol || token.symbol;
-                    token.name = onChainData.name || token.name;
-                    console.log(`Set symbol: ${token.symbol}, name: ${token.name}`);
-                  }
-                  
-                  if (meta?.offChainMetadata?.metadata) {
-                    const offChainData = meta.offChainMetadata.metadata;
-                    token.symbol = token.symbol || offChainData.symbol;
-                    token.name = token.name || offChainData.name;
-                    token.logoURI = offChainData.image || token.logoURI;
-                    console.log(`Updated from off-chain - symbol: ${token.symbol}, name: ${token.name}`);
-                  }
-                  
-                  // Final fallback: use mint address parts if still no good name
-                  if (!token.symbol || token.symbol === 'Unknown') {
-                    const displayName = getTokenDisplayName(token.mint.toString(), token.symbol, token.name);
-                    token.symbol = displayName.symbol;
-                    token.name = displayName.name;
-                  }
-                });
               }
+
+              console.log('Combined metadata:', metadata);
+              
+              // Merge metadata with token info
+              parsedTokens.forEach((token) => {
+                const meta = metadata.find((m: any) => 
+                  m.account === token.mint.toString() || 
+                  m.mint === token.mint.toString() ||
+                  m.address === token.mint.toString()
+                );
+                console.log(`Processing token ${token.mint.toString()}:`, meta);
+                
+                if (meta) {
+                  // Try different metadata structures
+                  let symbol = null;
+                  let name = null;
+                  
+                  // Structure 1: onChainMetadata
+                  if (meta.onChainMetadata?.metadata?.data) {
+                    const onChainData = meta.onChainMetadata.metadata.data;
+                    symbol = onChainData.symbol;
+                    name = onChainData.name;
+                  }
+                  
+                  // Structure 2: offChainMetadata
+                  if (meta.offChainMetadata?.metadata) {
+                    const offChainData = meta.offChainMetadata.metadata;
+                    symbol = symbol || offChainData.symbol;
+                    name = name || offChainData.name;
+                    token.logoURI = token.logoURI || offChainData.image;
+                  }
+                  
+                  // Structure 3: Direct properties
+                  symbol = symbol || meta.symbol || meta.ticker;
+                  name = name || meta.name;
+                  
+                  if (symbol) {
+                    token.symbol = symbol.trim();
+                    console.log(`Found symbol: ${token.symbol}`);
+                  }
+                  if (name) {
+                    token.name = name.trim();
+                    console.log(`Found name: ${token.name}`);
+                  }
+                }
+                
+                // Final fallback: use mint address parts if still no good name
+                if (!token.symbol || token.symbol === 'Unknown') {
+                  const displayName = getTokenDisplayName(token.mint.toString(), token.symbol, token.name);
+                  token.symbol = displayName.symbol;
+                  token.name = displayName.name;
+                }
+              });
             } catch (metadataError) {
               console.log('Could not fetch token metadata:', metadataError);
               // Add fallback symbols for tokens without metadata
