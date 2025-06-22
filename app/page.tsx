@@ -9,6 +9,7 @@ import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana
 import { motion, AnimatePresence } from 'framer-motion';
 import { FireAnimation } from '../components/FireAnimation';
 import GlitchText from '../components/GlitchText';
+import SplashCursor from '../components/SplashCursor';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -87,6 +88,9 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-cosmic-blue text-star-white font-orbitron relative overflow-x-hidden">
+      {/* Cosmic Cursor Effect */}
+      <SplashCursor />
+      
       {/* Animated space background */}
       <div className="fixed inset-0 -z-10 bg-space-nebula animate-cosmic-drift" />
       <div className="fixed inset-0 -z-5 starfield-bg opacity-30" />
