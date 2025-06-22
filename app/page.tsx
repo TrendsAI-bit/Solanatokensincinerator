@@ -3,11 +3,19 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image'
 import { WalletMultiButton } from '@solana/wallet-adapter-react-ui'
-import { Flame, Info, CheckCircle2, XCircle, Zap } from 'lucide-react'
+import { Flame, Info, CheckCircle2, XCircle, Zap, ExternalLink } from 'lucide-react'
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
-import { LAMPORTS_PER_SOL, PublicKey, Transaction, SystemProgram } from '@solana/web3.js';
+import { 
+  LAMPORTS_PER_SOL, 
+  PublicKey, 
+  Transaction
+} from '@solana/web3.js';
+import {
+  getAssociatedTokenAddress,
+  TOKEN_PROGRAM_ID,
+  createBurnInstruction
+} from "@solana/spl-token";
 import { motion, AnimatePresence } from 'framer-motion';
-import { FireAnimation } from '../components/FireAnimation';
 import GlitchText from '../components/GlitchText';
 import SplashCursor from '../components/SplashCursor';
 
@@ -18,69 +26,201 @@ const fadeInUp = {
 
 const glassPanel = 'glass-card cosmic-border shadow-stellar-glow';
 
+interface TokenAccount {
+  mint: PublicKey;
+  amount: number;
+  decimals: number;
+  symbol?: string;
+  name?: string;
+  logoURI?: string;
+}
+
+interface BurnLogEntry {
+  token: string;
+  tokenName?: string;
+  amount: string;
+  signature: string;
+  timestamp: number;
+}
+
 export default function Home() {
   const { publicKey, connected, sendTransaction } = useWallet();
   const { connection } = useConnection();
   const [balance, setBalance] = useState<number | null>(null);
-  const [tokens, setTokens] = useState<any[]>([]);
+  const [tokens, setTokens] = useState<TokenAccount[]>([]);
+  const [selectedToken, setSelectedToken] = useState<TokenAccount | null>(null);
+  const [burnAmount, setBurnAmount] = useState('');
   const [burning, setBurning] = useState(false);
   const [burnResult, setBurnResult] = useState<{success: boolean, message: string, txid?: string}|null>(null);
-  const [form, setForm] = useState({ address: '', amount: '' });
   const [formError, setFormError] = useState('');
+  const [ashBalance, setAshBalance] = useState(0);
+  const [burnLog, setBurnLog] = useState<BurnLogEntry[]>([]);
   const HELIUS_API_KEY = process.env.NEXT_PUBLIC_HELIUS_API_KEY;
 
   useEffect(() => {
-    if (!connected) return;
+    if (!connected || !publicKey) return;
+    
     const fetchBalance = async () => {
       if (publicKey) {
         const bal = await connection.getBalance(publicKey);
         setBalance(bal / LAMPORTS_PER_SOL);
       }
     };
+
     const fetchTokens = async () => {
-      if (publicKey && HELIUS_API_KEY) {
+      if (publicKey) {
         try {
-          const response = await fetch(
-            `https://api.helius.xyz/v0/addresses/${publicKey.toString()}/balances?api-key=${HELIUS_API_KEY}`
-          );
-          const data = await response.json();
-          setTokens(data.tokens || []);
+          // Get token accounts using SPL Token program
+          const tokenAccounts = await connection.getParsedTokenAccountsByOwner(publicKey, {
+            programId: TOKEN_PROGRAM_ID,
+          });
+
+          const parsedTokens: TokenAccount[] = tokenAccounts.value
+            .map((acc) => {
+              const info = acc.account.data.parsed.info;
+              const mint = new PublicKey(info.mint);
+              const amount = Number(info.tokenAmount.uiAmount);
+              const decimals = info.tokenAmount.decimals;
+              return { mint, amount, decimals };
+            })
+            .filter((t) => t.amount > 0);
+
+          // Try to get token metadata from Helius if available
+          if (HELIUS_API_KEY && parsedTokens.length > 0) {
+            try {
+              const mints = parsedTokens.map(t => t.mint.toString());
+              const response = await fetch(
+                `https://api.helius.xyz/v0/token-metadata?api-key=${HELIUS_API_KEY}`,
+                {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ mintAccounts: mints }),
+                }
+              );
+              const metadata = await response.json();
+              
+              // Merge metadata with token info
+              parsedTokens.forEach((token, index) => {
+                const meta = metadata.find((m: any) => m.account === token.mint.toString());
+                if (meta) {
+                  token.symbol = meta.onChainMetadata?.metadata?.data?.symbol || 'Unknown';
+                  token.name = meta.onChainMetadata?.metadata?.data?.name || 'Unknown Token';
+                  token.logoURI = meta.offChainMetadata?.metadata?.image;
+                }
+              });
+            } catch (error) {
+              console.log('Could not fetch token metadata:', error);
+            }
+          }
+
+          setTokens(parsedTokens);
         } catch (error) {
           console.error('Error fetching tokens:', error);
         }
       }
     };
+
     fetchBalance();
     fetchTokens();
   }, [publicKey, connected, connection, HELIUS_API_KEY]);
 
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-    setFormError('');
-  };
-
-  const validateForm = () => {
-    if (!form.address || !form.amount) {
-      setFormError('Please enter both token address and amount.');
+  const validateBurn = () => {
+    if (!selectedToken || !burnAmount) {
+      setFormError('Please select a token and enter an amount.');
       return false;
     }
-    if (isNaN(Number(form.amount)) || Number(form.amount) <= 0) {
+    const amount = parseFloat(burnAmount);
+    if (isNaN(amount) || amount <= 0) {
       setFormError('Amount must be a positive number.');
+      return false;
+    }
+    if (amount > selectedToken.amount) {
+      setFormError('Amount exceeds available balance.');
       return false;
     }
     return true;
   };
 
   const burnToken = async () => {
-    if (!validateForm()) return;
+    if (!validateBurn() || !publicKey || !selectedToken) return;
+    
     setBurning(true);
     setBurnResult(null);
+    setFormError('');
+
     try {
-      // Placeholder for actual burn logic
-      await new Promise((res) => setTimeout(res, 2000));
-      setBurnResult({ success: true, message: 'Token burned successfully!', txid: 'SAMPLE_TX_ID' });
-    } catch (error) {
-      setBurnResult({ success: false, message: 'Burn failed. Please try again.' });
+      const amount = parseFloat(burnAmount);
+      const burnAmountLamports = Math.floor(amount * Math.pow(10, selectedToken.decimals));
+
+      // Get the user's token account
+      const userTokenAccount = await getAssociatedTokenAddress(
+        selectedToken.mint,
+        publicKey
+      );
+
+      // Create burn instruction
+      const burnInstruction = createBurnInstruction(
+        userTokenAccount,
+        selectedToken.mint,
+        publicKey,
+        burnAmountLamports
+      );
+
+      const transaction = new Transaction().add(burnInstruction);
+      
+      // Send and confirm transaction
+      const signature = await sendTransaction(transaction, connection);
+      await connection.confirmTransaction(signature, 'confirmed');
+
+      // Update ASH balance (1000 ASH per burn)
+      setAshBalance(prev => prev + 1000);
+
+      // Add to burn log
+      const logEntry: BurnLogEntry = {
+        token: selectedToken.mint.toString(),
+        tokenName: selectedToken.symbol || selectedToken.name || 'Unknown',
+        amount: burnAmount,
+        signature,
+        timestamp: Date.now()
+      };
+      setBurnLog(prev => [logEntry, ...prev.slice(0, 9)]); // Keep last 10 entries
+
+      setBurnResult({ 
+        success: true, 
+        message: `Successfully burned ${burnAmount} ${selectedToken.symbol || 'tokens'}!`, 
+        txid: signature 
+      });
+
+      // Reset form
+      setBurnAmount('');
+      setSelectedToken(null);
+
+      // Refresh token balances
+      setTimeout(() => {
+        if (publicKey) {
+          connection.getParsedTokenAccountsByOwner(publicKey, {
+            programId: TOKEN_PROGRAM_ID,
+          }).then(tokenAccounts => {
+            const parsedTokens: TokenAccount[] = tokenAccounts.value
+              .map((acc) => {
+                const info = acc.account.data.parsed.info;
+                const mint = new PublicKey(info.mint);
+                const amount = Number(info.tokenAmount.uiAmount);
+                const decimals = info.tokenAmount.decimals;
+                return { mint, amount, decimals };
+              })
+              .filter((t) => t.amount > 0);
+            setTokens(parsedTokens);
+          });
+        }
+      }, 2000);
+
+    } catch (error: any) {
+      console.error('Burn failed:', error);
+      setBurnResult({ 
+        success: false, 
+        message: `Burn failed: ${error.message || 'Unknown error'}` 
+      });
     } finally {
       setBurning(false);
     }
@@ -146,53 +286,122 @@ export default function Home() {
       {/* Main Form Section */}
       <section className="flex flex-col items-center justify-center min-h-[40vh] pb-16">
         <motion.div className={glassPanel + ' w-full max-w-lg mx-auto'} initial="initial" animate="animate" variants={fadeInUp}>
-          <motion.h2 className="text-2xl font-bold mb-6 flex items-center gap-2 section-title" initial="initial" animate="animate" variants={fadeInUp}>
-            <Zap className="text-cosmic-cyan animate-twinkle" /> Incinerate Tokens
+          <motion.h2 className="text-2xl font-bold mb-6 flex items-center gap-2" initial="initial" animate="animate" variants={fadeInUp}>
+            <Zap className="text-cosmic-cyan animate-twinkle" /> 
+            <GlitchText
+              speed={0.8}
+              enableShadows={true}
+              enableOnHover={true}
+              className="text-2xl font-bold"
+            >
+              Incinerate Tokens
+            </GlitchText>
           </motion.h2>
-          <div className="mb-4">
-            <label className="block text-sm mb-1 text-stellar-purple">Token Address</label>
-            <div className="relative">
-              <input
-                name="address"
-                value={form.address}
-                onChange={handleInput}
-                placeholder="Enter token address..."
-                className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-lg placeholder-gray-400"
-                autoComplete="off"
-              />
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-cosmic-cyan">
-                <Zap size={20} />
-              </span>
+
+          {connected ? (
+            <>
+              {/* Token Selector */}
+              <div className="mb-4">
+                <label className="block text-sm mb-1 text-stellar-purple">Select Token</label>
+                <select
+                  className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-lg"
+                  onChange={(e) => {
+                    const token = tokens.find((t) => t.mint.toString() === e.target.value);
+                    setSelectedToken(token || null);
+                    setFormError('');
+                  }}
+                  value={selectedToken?.mint.toString() || ""}
+                >
+                  <option value="" disabled>Choose a token to burn</option>
+                  {tokens.map((token, i) => (
+                    <option key={i} value={token.mint.toString()}>
+                      {token.symbol || token.name || `${token.mint.toString().slice(0, 4)}...${token.mint.toString().slice(-4)}`} 
+                      ({token.amount.toFixed(4)})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Amount Input */}
+              <div className="mb-6">
+                <label className="block text-sm mb-1 text-stellar-purple">
+                  Amount to Burn
+                  {selectedToken && (
+                    <span className="text-cosmic-cyan ml-2">
+                      (Max: {selectedToken.amount.toFixed(4)})
+                    </span>
+                  )}
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={burnAmount}
+                    onChange={(e) => {
+                      setBurnAmount(e.target.value);
+                      setFormError('');
+                    }}
+                    placeholder="0.0"
+                    step="any"
+                    min="0"
+                    max={selectedToken?.amount || undefined}
+                    className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-lg placeholder-gray-400"
+                    autoComplete="off"
+                  />
+                  {selectedToken && (
+                    <button
+                      type="button"
+                      onClick={() => setBurnAmount(selectedToken.amount.toString())}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-cosmic-cyan hover:text-stellar-purple text-sm"
+                    >
+                      MAX
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {formError && (
+                <motion.div className="text-red-500 mb-4 flex items-center gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <XCircle size={20} /> {formError}
+                </motion.div>
+              )}
+
+              <motion.button
+                type="button"
+                className="btn-primary w-full flex items-center justify-center text-lg gap-2 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={{ scale: burning ? 1 : 1.05 }}
+                whileTap={{ scale: burning ? 1 : 0.97 }}
+                onClick={burnToken}
+                disabled={burning || !selectedToken || !burnAmount}
+              >
+                {burning ? (
+                  <>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                    <span>Incinerating...</span>
+                  </>
+                ) : (
+                  <>
+                    <span>Incinerate → +1000 ASH</span>
+                    <Zap className="text-white animate-twinkle" />
+                  </>
+                )}
+              </motion.button>
+
+              {/* ASH Balance */}
+              <div className="mt-6 text-center">
+                <div className="text-lg font-bold text-meteor-orange">
+                  🔥 ASH Accumulated: {ashBalance.toLocaleString()} / 50,000
+                </div>
+                <div className="text-sm text-gray-400 mt-1">
+                  Redeem 50,000 ASH for rewards
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-stellar-purple mb-4">Connect your wallet to start burning tokens</p>
+              <WalletMultiButton className="btn-primary" />
             </div>
-          </div>
-          <div className="mb-6">
-            <label className="block text-sm mb-1 text-stellar-purple">Amount</label>
-            <input
-              name="amount"
-              value={form.amount}
-              onChange={handleInput}
-              placeholder="0.0"
-              type="number"
-              className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-lg placeholder-gray-400"
-              autoComplete="off"
-            />
-          </div>
-          {formError && (
-            <motion.div className="text-red-500 mb-4 flex items-center gap-2" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-              <XCircle size={20} /> {formError}
-            </motion.div>
           )}
-          <motion.button
-            type="button"
-            className="btn-primary w-full flex items-center justify-center text-lg gap-2 mt-2"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            onClick={burnToken}
-            disabled={burning}
-          >
-            <span>Incinerate Tokens</span>
-            <Zap className="text-white animate-twinkle" />
-          </motion.button>
         </motion.div>
         
         {/* Confirmation/Result Section */}
@@ -209,7 +418,18 @@ export default function Home() {
                 <>
                   <CheckCircle2 className="mx-auto text-plasma-green mb-2" size={40} />
                   <div className="text-xl font-bold mb-2">{burnResult.message}</div>
-                  <div className="text-sm text-gray-400">Transaction ID: <span className="text-cosmic-cyan">{burnResult.txid}</span></div>
+                  {burnResult.txid && (
+                    <div className="text-sm text-gray-400">
+                      <a 
+                        href={`https://solscan.io/tx/${burnResult.txid}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cosmic-cyan hover:text-stellar-purple flex items-center justify-center gap-1"
+                      >
+                        View Transaction <ExternalLink size={16} />
+                      </a>
+                    </div>
+                  )}
                 </>
               ) : (
                 <>
@@ -220,6 +440,43 @@ export default function Home() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* Burn History */}
+        {burnLog.length > 0 && (
+          <motion.div
+            className={glassPanel + ' mt-8 w-full max-w-2xl mx-auto'}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <Flame className="text-meteor-orange" />
+              Recent Burns
+            </h3>
+            <div className="space-y-3 max-h-64 overflow-y-auto">
+              {burnLog.map((log, i) => (
+                <div key={i} className="bg-cosmic-blue/40 p-3 rounded-lg flex justify-between items-center">
+                  <div>
+                    <div className="font-semibold">
+                      {log.amount} {log.tokenName}
+                    </div>
+                    <div className="text-sm text-gray-400">
+                      {new Date(log.timestamp).toLocaleString()}
+                    </div>
+                  </div>
+                  <a
+                    href={`https://solscan.io/tx/${log.signature}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cosmic-cyan hover:text-stellar-purple transition-colors"
+                  >
+                    <ExternalLink size={16} />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
       </section>
       
       {/* Footer */}
