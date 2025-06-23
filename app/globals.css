@@ -80,6 +80,44 @@ body {
   box-shadow: 0 0 0 2px #6B46C1, 0 0 16px 2px #EC4899;
 }
 
+/* Glitch Logo Effect */
+.glitch-logo {
+  animation: logo-glitch 0.1s infinite;
+}
+
+@keyframes logo-glitch {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-1px, -1px);
+  }
+  20% {
+    transform: translate(1px, 1px);
+  }
+  30% {
+    transform: translate(-1px, 1px);
+  }
+  40% {
+    transform: translate(1px, -1px);
+  }
+  50% {
+    transform: translate(-2px, 0);
+  }
+  60% {
+    transform: translate(2px, 0);
+  }
+  70% {
+    transform: translate(0, -2px);
+  }
+  80% {
+    transform: translate(0, 2px);
+  }
+  90% {
+    transform: translate(-1px, 0);
+  }
+}
+
 @layer components {
   .btn-primary {
     @apply bg-gradient-to-r from-stellar-purple to-nebula-pink text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-stellar-glow focus:outline-none focus:ring-2 focus:ring-stellar-purple font-orbitron;

@@ -38,7 +38,7 @@ function SplashCursor() {
           vec2 mouse = u_mouse / u_resolution.xy;
           
           float dist = distance(st, mouse);
-          float intensity = 1.0 - smoothstep(0.0, 0.3, dist);
+          float intensity = 1.0 - smoothstep(0.0, 0.15, dist);
           
           // Space-themed colors
           vec3 color1 = vec3(0.42, 0.27, 0.76); // stellar-purple
