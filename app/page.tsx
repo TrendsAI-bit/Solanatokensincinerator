@@ -621,44 +621,7 @@ Transaction: https://solscan.io/tx/${txid}
                 )}
               </motion.div>
               
-              {/* Scroll-Triggered Feature Cards */}
-              <motion.div 
-                className="mt-12 md:mt-16 mb-6 md:mb-8 flex flex-col gap-4 md:gap-6 max-w-3xl mx-auto px-4 w-full"
-                initial={{ opacity: 0, y: 50 }} 
-                whileInView={{ opacity: 1, y: 0 }} 
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <motion.div 
-                  className="bg-gradient-to-br from-stellar-purple/10 to-cosmic-cyan/15 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-stellar-purple/20 flex items-center gap-3 md:gap-4 hover:border-stellar-purple/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full"
-                  whileHover={{ y: -5 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="bg-gradient-to-br from-stellar-purple/20 to-cosmic-cyan/20 p-2 md:p-3 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                    <Share className="text-cosmic-cyan animate-twinkle group-hover:animate-pulse" size={24} />
-                  </div>
-                  <div className="text-left min-w-0 flex-1">
-                    <div className="text-base md:text-lg font-bold text-star-white group-hover:text-cosmic-cyan transition-colors duration-300 leading-tight">Share to X Instantly</div>
-                    <div className="text-xs md:text-sm text-cosmic-cyan/80 group-hover:text-cosmic-cyan transition-colors duration-300 leading-tight mt-1">Auto-generate cosmic burn posts with one click</div>
-                  </div>
-                </motion.div>
-                
-                <motion.div 
-                  className="bg-gradient-to-br from-cosmic-cyan/10 to-nebula-pink/15 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-cosmic-cyan/20 flex items-center gap-3 md:gap-4 hover:border-cosmic-cyan/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full"
-                  whileHover={{ y: -5 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="bg-gradient-to-br from-cosmic-cyan/20 to-nebula-pink/20 p-2 md:p-3 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                    <Zap className="text-meteor-orange animate-pulse group-hover:animate-bounce" size={24} />
-                  </div>
-                  <div className="text-left min-w-0 flex-1">
-                    <div className="text-base md:text-lg font-bold text-star-white group-hover:text-meteor-orange transition-colors duration-300 leading-tight">Earn ASH Rewards</div>
-                    <div className="text-xs md:text-sm text-meteor-orange/80 group-hover:text-meteor-orange transition-colors duration-300 leading-tight mt-1">1M tokens = 1000 ASH • Instant rewards</div>
-                  </div>
-                </motion.div>
-              </motion.div>
-              
-              {/* Confirmation/Result Section */}
+              {/* Confirmation/Result Section - Moved above feature cards for better visibility */}
               <AnimatePresence>
                 {burnResult && (
                   <motion.div
@@ -731,7 +694,44 @@ Transaction: https://solscan.io/tx/${txid}
                   </motion.div>
                 )}
               </AnimatePresence>
-
+              
+              {/* Scroll-Triggered Feature Cards */}
+              <motion.div 
+                className="mt-12 md:mt-16 mb-6 md:mb-8 flex flex-col gap-4 md:gap-6 max-w-3xl mx-auto px-4 w-full"
+                initial={{ opacity: 0, y: 50 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                <motion.div 
+                  className="bg-gradient-to-br from-stellar-purple/10 to-cosmic-cyan/15 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-stellar-purple/20 flex items-center gap-3 md:gap-4 hover:border-stellar-purple/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full"
+                  whileHover={{ y: -5 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="bg-gradient-to-br from-stellar-purple/20 to-cosmic-cyan/20 p-2 md:p-3 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                    <Share className="text-cosmic-cyan animate-twinkle group-hover:animate-pulse" size={24} />
+                  </div>
+                  <div className="text-left min-w-0 flex-1">
+                    <div className="text-base md:text-lg font-bold text-star-white group-hover:text-cosmic-cyan transition-colors duration-300 leading-tight">Share to X Instantly</div>
+                    <div className="text-xs md:text-sm text-cosmic-cyan/80 group-hover:text-cosmic-cyan transition-colors duration-300 leading-tight mt-1">Auto-generate cosmic burn posts with one click</div>
+                  </div>
+                </motion.div>
+                
+                <motion.div 
+                  className="bg-gradient-to-br from-cosmic-cyan/10 to-nebula-pink/15 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-cosmic-cyan/20 flex items-center gap-3 md:gap-4 hover:border-cosmic-cyan/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full"
+                  whileHover={{ y: -5 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <div className="bg-gradient-to-br from-cosmic-cyan/20 to-nebula-pink/20 p-2 md:p-3 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                    <Zap className="text-meteor-orange animate-pulse group-hover:animate-bounce" size={24} />
+                  </div>
+                  <div className="text-left min-w-0 flex-1">
+                    <div className="text-base md:text-lg font-bold text-star-white group-hover:text-meteor-orange transition-colors duration-300 leading-tight">Earn ASH Rewards</div>
+                    <div className="text-xs md:text-sm text-meteor-orange/80 group-hover:text-meteor-orange transition-colors duration-300 leading-tight mt-1">1M tokens = 1000 ASH • Instant rewards</div>
+                  </div>
+                </motion.div>
+              </motion.div>
+              
               {/* Burn History */}
               {burnLog.length > 0 && (
                 <motion.div
