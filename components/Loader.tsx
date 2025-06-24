@@ -4,70 +4,47 @@ import styled from 'styled-components';
 const Loader = () => {
   return (
     <StyledWrapper>
-      <div className="loader">
-        <span />
-        <span />
-        <span />
-        <span />
+      <div className="spinner">
+        <div className="spinner1" />
       </div>
     </StyledWrapper>
   );
 }
 
 const StyledWrapper = styled.div`
-  .loader {
-    position: relative;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: linear-gradient(#ee280e, #15a0f7, #6ed15a);
-    animation: animate7712 1.2s linear infinite;
+  .spinner {
+    background-image: linear-gradient(rgb(186, 66, 255) 35%,rgb(0, 225, 255));
+    width: 100px;
+    height: 100px;
+    animation: spinning82341 1.7s linear infinite, hue 1s ease-in-out infinite;
+    text-align: center;
+    border-radius: 50px;
+    filter: blur(1px);
+    box-shadow: 0px -5px 20px 0px rgb(186, 66, 255), 0px 5px 20px 0px rgb(0, 225, 255);
   }
 
-  @keyframes animate7712 {
-    0% {
-      transform: rotate(0deg);
-    }
+  .spinner1 {
+    background-color: rgb(36, 36, 36);
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    filter: blur(10px);
+  }
 
-    100% {
+  @keyframes spinning82341 {
+    to {
       transform: rotate(360deg);
     }
   }
 
-  .loader span {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: linear-gradient(#ee280e, #15a0f7, #5ad15a);
-  }
+  @keyframes hue {
+    0% {
+      filter: hue-rotate(0deg);
+    }
 
-  .loader:after {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    background: #333;
-    border: solid #333 10px;
-    border-radius: 50%;
-  }
-
-  .loader span:nth-child(1) {
-    filter: blur(5px);
-  }
-
-  .loader span:nth-child(2) {
-    filter: blur(10px);
-  }
-
-  .loader span:nth-child(3) {
-    filter: blur(25px);
-  }
-
-  .loader span:nth-child(4) {
-    filter: blur(50px);
+    100% {
+      filter: hue-rotate(360deg);
+    }
   }
 `;
 
