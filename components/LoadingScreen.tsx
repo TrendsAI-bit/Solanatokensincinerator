@@ -37,72 +37,41 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
       <div className="fixed inset-0 bg-space-nebula animate-cosmic-drift opacity-60" />
       <div className="fixed inset-0 starfield-bg opacity-40" />
       
-      {/* Main loading content */}
-      <div className="relative z-10 text-center">
-        {/* New Loader Animation */}
-        <motion.div
-          className="mb-8"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <div className="flex justify-center mb-4">
-            <Loader />
+      {/* Main Loading Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
+        {/* Logo Container */}
+        <div className="relative mb-6 md:mb-8">
+          <Loader />
+        </div>
+        
+        {/* App Title */}
+        <h1 className="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4 bg-gradient-to-r from-stellar-purple via-cosmic-cyan to-meteor-orange bg-clip-text text-transparent animate-stellar-pulse">
+          STELLAR INCINERATOR
+        </h1>
+        
+        {/* Loading Text */}
+        <div className="text-sm md:text-lg text-cosmic-cyan mb-6 md:mb-8 text-center animate-pulse">
+          {progress < 30 && "Initializing cosmic systems..."}
+          {progress >= 30 && progress < 60 && "Connecting to stellar network..."}
+          {progress >= 60 && progress < 90 && "Preparing incineration protocols..."}
+          {progress >= 90 && "Launch sequence initiated..."}
+        </div>
+        
+        {/* Progress Bar */}
+        <div className="w-full max-w-xs md:max-w-md mb-4 md:mb-6">
+          <div className="flex justify-between text-xs md:text-sm text-gray-400 mb-2">
+            <span>Loading</span>
+            <span>{progress}%</span>
           </div>
-        </motion.div>
-
-        {/* Title */}
-        <motion.h1
-          className="text-3xl font-bold text-star-white mb-2 font-orbitron"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-        >
-          Stellar Incinerator
-        </motion.h1>
-
-        <motion.p
-          className="text-cosmic-cyan mb-8 text-lg"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          Initializing cosmic systems...
-        </motion.p>
-
-        {/* Progress bar */}
-        <div className="w-64 mx-auto mb-4">
-          <div className="h-1 bg-cosmic-blue/40 rounded-full overflow-hidden backdrop-blur-sm border border-stellar-purple/20">
+          <div className="w-full bg-cosmic-blue/30 rounded-full h-1.5 md:h-2">
             <motion.div
-              className="h-full bg-gradient-to-r from-stellar-purple via-cosmic-cyan to-meteor-orange"
-              initial={{ width: "0%" }}
+              className="h-1.5 md:h-2 rounded-full bg-gradient-to-r from-stellar-purple via-cosmic-cyan to-meteor-orange"
+              initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.3, ease: "easeOut" }}
             />
           </div>
-          
-          {/* Progress percentage */}
-          <motion.div
-            className="text-center mt-2 text-sm text-cosmic-cyan font-mono"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-          >
-            {progress}%
-          </motion.div>
         </div>
-
-        {/* Loading states text */}
-        <motion.div
-          className="text-sm text-stellar-purple/80 mt-4"
-          animate={{ opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          {progress < 30 && "Connecting to Solana network..."}
-          {progress >= 30 && progress < 60 && "Loading wallet adapters..."}
-          {progress >= 60 && progress < 90 && "Preparing token interfaces..."}
-          {progress >= 90 && "Almost ready for launch..."}
-        </motion.div>
       </div>
 
       {/* Corner decorations */}

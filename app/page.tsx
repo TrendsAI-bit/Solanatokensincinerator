@@ -402,76 +402,78 @@ Transaction: https://solscan.io/tx/${txid}
             </div>
             
             {/* Top Bar */}
-            <header className="flex items-center justify-between px-6 py-4 w-full z-20">
-              <div className="flex items-center space-x-3">
+            <header className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 w-full z-20">
+              <div className="flex items-center space-x-2 md:space-x-3">
                 <GlitchLogo 
                   src="/logo.png" 
                   alt="Stellar Token Burner Logo" 
-                  width={48} 
-                  height={48}
+                  width={40} 
+                  height={40}
                   glitchInterval={4000}
                   glitchDuration={500}
+                  className="md:w-12 md:h-12"
                 />
                 <GlitchText
                   speed={0.5}
                   enableShadows={true}
                   enableOnHover={true}
-                  className="text-2xl font-bold"
+                  className="text-lg md:text-2xl font-bold"
                 >
                   Stellar Incinerator
                 </GlitchText>
               </div>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 md:space-x-4">
                 <a 
                   href="https://trendsai.gitbook.io/stellar-incinerator/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-cosmic-cyan hover:text-stellar-purple transition-colors font-semibold flex items-center gap-1 z-50 relative cursor-pointer bg-cosmic-blue/20 px-2 py-1 rounded border border-cosmic-cyan/30 hover:border-stellar-purple/50"
+                  className="text-cosmic-cyan hover:text-stellar-purple transition-colors font-semibold flex items-center gap-1 z-50 relative cursor-pointer bg-cosmic-blue/20 px-2 py-1 rounded border border-cosmic-cyan/30 hover:border-stellar-purple/50 text-sm md:text-base"
                   onClick={(e) => {
                     e.stopPropagation();
                     window.open('https://trendsai.gitbook.io/stellar-incinerator/', '_blank', 'noopener,noreferrer');
                   }}
                 >
-                  <BookOpen size={16} />
-                  GitBook
+                  <BookOpen size={14} className="md:w-4 md:h-4" />
+                  <span className="hidden sm:inline">GitBook</span>
+                  <span className="sm:hidden">Guide</span>
                 </a>
               </div>
             </header>
             
             {/* Hero Section */}
-            <section className="flex flex-col items-center justify-center text-center pt-24 pb-12">
-              <motion.h1 className="section-title" initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+            <section className="flex flex-col items-center justify-center text-center pt-12 md:pt-24 pb-8 md:pb-12 px-4">
+              <motion.h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-star-white mb-4 font-orbitron animate-stellar-pulse" initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                 <GlitchText
                   speed={1}
                   enableShadows={true}
                   enableOnHover={true}
-                  className="section-title"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold"
                 >
                   Burn Solana Tokens Across the Galaxy
                 </GlitchText>
               </motion.h1>
-              <motion.p className="section-subtitle max-w-xl mx-auto" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
+              <motion.p className="text-base md:text-xl text-cosmic-cyan mb-6 md:mb-8 font-orbitron max-w-xl mx-auto px-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
                 A stellar, space-inspired dApp for incinerating your Solana tokens. Send tokens to space and get ASH in return. Powered by cosmic energy, secured by the void, visually stunning like nebulae.
               </motion.p>
               
-              <motion.div className="mt-6" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, duration: 0.6 }}>
-                <WalletMultiButton className="btn-primary text-lg px-8 py-4" />
+              <motion.div className="mt-4 md:mt-6" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, duration: 0.6 }}>
+                <WalletMultiButton className="btn-primary text-base md:text-lg px-6 md:px-8 py-3 md:py-4" />
                 {connected && balance !== null && (
-                  <span className="block mt-2 text-cosmic-cyan font-semibold">Balance: {balance.toFixed(4)} SOL</span>
+                  <span className="block mt-2 text-cosmic-cyan font-semibold text-sm md:text-base">Balance: {balance.toFixed(4)} SOL</span>
                 )}
               </motion.div>
             </section>
             
             {/* Main Form Section */}
-            <section className="flex flex-col items-center justify-center min-h-[40vh] pb-16">
+            <section className="flex flex-col items-center justify-center min-h-[40vh] pb-12 md:pb-16 px-4">
               <motion.div className={glassPanel + ' w-full max-w-lg mx-auto'} initial="initial" animate="animate" variants={fadeInUp}>
-                <motion.h2 className="text-2xl font-bold mb-6 flex items-center gap-2" initial="initial" animate="animate" variants={fadeInUp}>
-                  <Zap className="text-cosmic-cyan animate-twinkle" /> 
+                <motion.h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 flex items-center gap-2" initial="initial" animate="animate" variants={fadeInUp}>
+                  <Zap className="text-cosmic-cyan animate-twinkle" size={20} /> 
                   <GlitchText
                     speed={0.8}
                     enableShadows={true}
                     enableOnHover={true}
-                    className="text-2xl font-bold"
+                    className="text-xl md:text-2xl font-bold"
                   >
                     Incinerate Tokens
                   </GlitchText>
@@ -492,7 +494,7 @@ Transaction: https://solscan.io/tx/${txid}
                         )}
                       </label>
                       <select
-                        className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-lg"
+                        className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-base md:text-lg"
                         onChange={(e) => {
                           const token = tokens.find((t) => t.mint.toString() === e.target.value);
                           setSelectedToken(token || null);
@@ -543,7 +545,7 @@ Transaction: https://solscan.io/tx/${txid}
                           step="any"
                           min="0"
                           max={selectedToken?.amount || undefined}
-                          className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-lg placeholder-gray-400"
+                          className="w-full p-3 rounded-lg bg-cosmic-blue/60 border border-stellar-purple focus:outline-none focus:ring-2 focus:ring-cosmic-cyan text-base md:text-lg placeholder-gray-400"
                           autoComplete="off"
                         />
                         {selectedToken && (
@@ -577,7 +579,7 @@ Transaction: https://solscan.io/tx/${txid}
 
                     <motion.button
                       type="button"
-                      className="btn-primary w-full flex items-center justify-center text-lg gap-2 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="btn-primary w-full flex items-center justify-center text-base md:text-lg gap-2 mt-2 disabled:opacity-50 disabled:cursor-not-allowed"
                       whileHover={{ scale: burning ? 1 : 1.05 }}
                       whileTap={{ scale: burning ? 1 : 0.97 }}
                       onClick={burnToken}
@@ -590,30 +592,30 @@ Transaction: https://solscan.io/tx/${txid}
                         </>
                       ) : (
                         <>
-                          <span>
+                          <span className="text-sm md:text-base">
                             {burnAmount && parseFloat(burnAmount) > 0 
                               ? `Incinerate → +${calculateAshPreview().toLocaleString()} ASH`
                               : 'Incinerate → Earn ASH'
                             }
                           </span>
-                          <Zap className="text-white animate-twinkle" />
+                          <Zap className="text-white animate-twinkle" size={20} />
                         </>
                       )}
                     </motion.button>
 
                     {/* ASH Balance */}
-                    <div className="mt-6 text-center">
-                      <div className="text-lg font-bold text-meteor-orange">
+                    <div className="mt-4 md:mt-6 text-center">
+                      <div className="text-base md:text-lg font-bold text-meteor-orange">
                         🔥 ASH Accumulated: {ashBalance.toLocaleString()} / 50,000
                       </div>
-                      <div className="text-sm text-gray-400 mt-1">
+                      <div className="text-xs md:text-sm text-gray-400 mt-1">
                         Redeem 50,000 ASH for rewards • 1M tokens = 1000 ASH
                       </div>
                     </div>
                   </>
                 ) : (
-                  <div className="text-center py-8">
-                    <p className="text-stellar-purple mb-4">Connect your wallet to start burning tokens</p>
+                  <div className="text-center py-6 md:py-8">
+                    <p className="text-stellar-purple mb-4 text-sm md:text-base">Connect your wallet to start burning tokens</p>
                     <WalletMultiButton className="btn-primary" />
                   </div>
                 )}
@@ -621,37 +623,37 @@ Transaction: https://solscan.io/tx/${txid}
               
               {/* Scroll-Triggered Feature Cards */}
               <motion.div 
-                className="mt-16 mb-8 flex flex-col sm:flex-row items-center justify-center gap-6 max-w-3xl mx-auto px-4"
+                className="mt-12 md:mt-16 mb-6 md:mb-8 flex flex-col gap-4 md:gap-6 max-w-3xl mx-auto px-4 w-full"
                 initial={{ opacity: 0, y: 50 }} 
                 whileInView={{ opacity: 1, y: 0 }} 
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 <motion.div 
-                  className="bg-gradient-to-br from-stellar-purple/10 to-cosmic-cyan/15 backdrop-blur-xl rounded-2xl p-6 border border-stellar-purple/20 flex items-center gap-4 hover:border-stellar-purple/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full sm:w-auto"
+                  className="bg-gradient-to-br from-stellar-purple/10 to-cosmic-cyan/15 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-stellar-purple/20 flex items-center gap-3 md:gap-4 hover:border-stellar-purple/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full"
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <div className="bg-gradient-to-br from-stellar-purple/20 to-cosmic-cyan/20 p-3 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                    <Share className="text-cosmic-cyan animate-twinkle group-hover:animate-pulse" size={28} />
+                  <div className="bg-gradient-to-br from-stellar-purple/20 to-cosmic-cyan/20 p-2 md:p-3 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                    <Share className="text-cosmic-cyan animate-twinkle group-hover:animate-pulse" size={24} />
                   </div>
-                  <div className="text-left">
-                    <div className="text-lg font-bold text-star-white group-hover:text-cosmic-cyan transition-colors duration-300">Share to X Instantly</div>
-                    <div className="text-sm text-cosmic-cyan/80 group-hover:text-cosmic-cyan transition-colors duration-300">Auto-generate cosmic burn posts with one click</div>
+                  <div className="text-left min-w-0 flex-1">
+                    <div className="text-base md:text-lg font-bold text-star-white group-hover:text-cosmic-cyan transition-colors duration-300 leading-tight">Share to X Instantly</div>
+                    <div className="text-xs md:text-sm text-cosmic-cyan/80 group-hover:text-cosmic-cyan transition-colors duration-300 leading-tight mt-1">Auto-generate cosmic burn posts with one click</div>
                   </div>
                 </motion.div>
                 
                 <motion.div 
-                  className="bg-gradient-to-br from-cosmic-cyan/10 to-nebula-pink/15 backdrop-blur-xl rounded-2xl p-6 border border-cosmic-cyan/20 flex items-center gap-4 hover:border-cosmic-cyan/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full sm:w-auto"
+                  className="bg-gradient-to-br from-cosmic-cyan/10 to-nebula-pink/15 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-cosmic-cyan/20 flex items-center gap-3 md:gap-4 hover:border-cosmic-cyan/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full"
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <div className="bg-gradient-to-br from-cosmic-cyan/20 to-nebula-pink/20 p-3 rounded-xl group-hover:scale-110 transition-transform duration-300">
-                    <Zap className="text-meteor-orange animate-pulse group-hover:animate-bounce" size={28} />
+                  <div className="bg-gradient-to-br from-cosmic-cyan/20 to-nebula-pink/20 p-2 md:p-3 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                    <Zap className="text-meteor-orange animate-pulse group-hover:animate-bounce" size={24} />
                   </div>
-                  <div className="text-left">
-                    <div className="text-lg font-bold text-star-white group-hover:text-meteor-orange transition-colors duration-300">Earn ASH Rewards</div>
-                    <div className="text-sm text-meteor-orange/80 group-hover:text-meteor-orange transition-colors duration-300">1M tokens = 1000 ASH • Instant rewards</div>
+                  <div className="text-left min-w-0 flex-1">
+                    <div className="text-base md:text-lg font-bold text-star-white group-hover:text-meteor-orange transition-colors duration-300 leading-tight">Earn ASH Rewards</div>
+                    <div className="text-xs md:text-sm text-meteor-orange/80 group-hover:text-meteor-orange transition-colors duration-300 leading-tight mt-1">1M tokens = 1000 ASH • Instant rewards</div>
                   </div>
                 </motion.div>
               </motion.div>
@@ -660,7 +662,7 @@ Transaction: https://solscan.io/tx/${txid}
               <AnimatePresence>
                 {burnResult && (
                   <motion.div
-                    className={glassPanel + ' mt-8 w-full max-w-md mx-auto text-center'}
+                    className={glassPanel + ' mt-6 md:mt-8 w-full max-w-md mx-auto text-center'}
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 40 }}
@@ -668,8 +670,8 @@ Transaction: https://solscan.io/tx/${txid}
                   >
                     {burnResult.success ? (
                       <>
-                        <CheckCircle2 className="mx-auto text-plasma-green mb-2" size={40} />
-                        <div className="text-xl font-bold mb-2">{burnResult.message}</div>
+                        <CheckCircle2 className="mx-auto text-plasma-green mb-2" size={32} />
+                        <div className="text-lg md:text-xl font-bold mb-2">{burnResult.message}</div>
                         {burnResult.txid && (
                           <>
                             <div className="text-sm text-gray-400 mb-4">
@@ -679,16 +681,16 @@ Transaction: https://solscan.io/tx/${txid}
                                 rel="noopener noreferrer"
                                 className="text-cosmic-cyan hover:text-stellar-purple flex items-center justify-center gap-1"
                               >
-                                View Transaction <ExternalLink size={16} />
+                                View Transaction <ExternalLink size={14} />
                               </a>
                             </div>
                             
                             {/* Share Section */}
-                            <div className="bg-cosmic-blue/40 p-4 rounded-lg">
-                              <div className="text-sm text-stellar-purple mb-3 font-semibold">
+                            <div className="bg-cosmic-blue/40 p-3 md:p-4 rounded-lg">
+                              <div className="text-xs md:text-sm text-stellar-purple mb-3 font-semibold">
                                 🌌 Share your cosmic burn across the galaxy! Share to X instantly.
                               </div>
-                              <div className="flex gap-3 justify-center">
+                              <div className="flex flex-col sm:flex-row gap-2 md:gap-3 justify-center">
                                 <a
                                   href={generateTwitterShareMessage(
                                     selectedToken?.symbol || 'tokens',
@@ -698,9 +700,9 @@ Transaction: https://solscan.io/tx/${txid}
                                   )}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center gap-2 bg-stellar-purple hover:bg-stellar-purple/80 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+                                  className="flex items-center justify-center gap-2 bg-stellar-purple hover:bg-stellar-purple/80 text-white px-3 md:px-4 py-2 rounded-lg transition-colors text-xs md:text-sm"
                                 >
-                                  <Share size={16} />
+                                  <Share size={14} />
                                   Share on X
                                 </a>
                                 <button
@@ -710,9 +712,9 @@ Transaction: https://solscan.io/tx/${txid}
                                     burnResult.ashEarned || 0,
                                     burnResult.txid
                                   )}
-                                  className="flex items-center gap-2 bg-cosmic-cyan hover:bg-cosmic-cyan/80 text-white px-4 py-2 rounded-lg transition-colors text-sm"
+                                  className="flex items-center justify-center gap-2 bg-cosmic-cyan hover:bg-cosmic-cyan/80 text-white px-3 md:px-4 py-2 rounded-lg transition-colors text-xs md:text-sm"
                                 >
-                                  <Copy size={16} />
+                                  <Copy size={14} />
                                   Copy Message
                                 </button>
                               </div>
@@ -722,8 +724,8 @@ Transaction: https://solscan.io/tx/${txid}
                       </>
                     ) : (
                       <>
-                        <XCircle className="mx-auto text-red-500 mb-2" size={40} />
-                        <div className="text-xl font-bold mb-2">{burnResult.message}</div>
+                        <XCircle className="mx-auto text-red-500 mb-2" size={32} />
+                        <div className="text-lg md:text-xl font-bold mb-2">{burnResult.message}</div>
                       </>
                     )}
                   </motion.div>
@@ -733,23 +735,23 @@ Transaction: https://solscan.io/tx/${txid}
               {/* Burn History */}
               {burnLog.length > 0 && (
                 <motion.div
-                  className={glassPanel + ' mt-8 w-full max-w-2xl mx-auto'}
+                  className={glassPanel + ' mt-6 md:mt-8 w-full max-w-2xl mx-auto'}
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                    <Flame className="text-meteor-orange" />
+                  <h3 className="text-lg md:text-xl font-bold mb-3 md:mb-4 flex items-center gap-2">
+                    <Flame className="text-meteor-orange" size={20} />
                     Recent Burns
                   </h3>
-                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                  <div className="space-y-2 md:space-y-3 max-h-64 overflow-y-auto">
                     {burnLog.map((log, i) => (
                       <div key={i} className="bg-cosmic-blue/40 p-3 rounded-lg flex justify-between items-center">
-                        <div>
-                          <div className="font-semibold">
+                        <div className="min-w-0 flex-1">
+                          <div className="font-semibold text-sm md:text-base truncate">
                             {log.amount} {log.tokenName}
                           </div>
-                          <div className="text-sm text-gray-400">
+                          <div className="text-xs md:text-sm text-gray-400">
                             {new Date(log.timestamp).toLocaleString()}
                           </div>
                         </div>
@@ -757,9 +759,9 @@ Transaction: https://solscan.io/tx/${txid}
                           href={`https://solscan.io/tx/${log.signature}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-cosmic-cyan hover:text-stellar-purple transition-colors"
+                          className="text-cosmic-cyan hover:text-stellar-purple transition-colors ml-2 flex-shrink-0"
                         >
-                          <ExternalLink size={16} />
+                          <ExternalLink size={14} />
                         </a>
                       </div>
                     ))}
@@ -769,27 +771,32 @@ Transaction: https://solscan.io/tx/${txid}
             </section>
             
             {/* Footer */}
-            <footer className="py-10 px-4 text-center text-gray-400 text-sm">
-              <div className="flex flex-col md:flex-row items-center justify-center gap-2">
-                <span>Powered by <span className="text-stellar-purple font-bold">cosmic energy</span>. Built for <span className="text-cosmic-cyan font-bold">stellar exploration</span>.</span>
-                <span className="hidden md:inline">|</span>
-                <a 
-                  href="https://trendsai.gitbook.io/stellar-incinerator/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-cosmic-cyan hover:text-stellar-purple transition-colors font-semibold flex items-center gap-1 z-50 relative cursor-pointer bg-cosmic-blue/20 px-2 py-1 rounded border border-cosmic-cyan/30 hover:border-stellar-purple/50"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    window.open('https://trendsai.gitbook.io/stellar-incinerator/', '_blank', 'noopener,noreferrer');
-                  }}
-                >
-                  <BookOpen size={16} />
-                  GitBook
-                </a>
-                <span className="hidden md:inline">|</span>
-                <span>Contract: <span className="text-gray-400">0x1234...5678</span></span>
+            <footer className="py-8 md:py-10 px-4 text-center text-gray-400 text-xs md:text-sm">
+              <div className="flex flex-col items-center justify-center gap-2 md:gap-3">
+                <div className="flex flex-col md:flex-row items-center justify-center gap-2">
+                  <span>Powered by <span className="text-stellar-purple font-bold">cosmic energy</span>. Built for <span className="text-cosmic-cyan font-bold">stellar exploration</span>.</span>
+                  <span className="hidden md:inline">|</span>
+                  <a 
+                    href="https://trendsai.gitbook.io/stellar-incinerator/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-cosmic-cyan hover:text-stellar-purple transition-colors font-semibold flex items-center gap-1 z-50 relative cursor-pointer bg-cosmic-blue/20 px-2 py-1 rounded border border-cosmic-cyan/30 hover:border-stellar-purple/50 text-xs md:text-sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open('https://trendsai.gitbook.io/stellar-incinerator/', '_blank', 'noopener,noreferrer');
+                    }}
+                  >
+                    <BookOpen size={12} className="md:w-4 md:h-4" />
+                    <span className="hidden sm:inline">GitBook</span>
+                    <span className="sm:hidden">Guide</span>
+                  </a>
+                </div>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-2">
+                  <span>Contract: <span className="text-gray-400 break-all">0x1234...5678</span></span>
+                  <span className="hidden md:inline">|</span>
+                  <span>© 2025 Stellar Incinerator. All rights reserved.</span>
+                </div>
               </div>
-              <div className="mt-2">© 2025 Stellar Incinerator. All rights reserved.</div>
             </footer>
           </motion.main>
         )}

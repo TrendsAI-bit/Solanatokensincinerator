@@ -66,10 +66,13 @@ body {
   background-size: cover, 200px 200px;
   background-repeat: no-repeat, repeat;
   background-attachment: fixed, fixed;
+  /* Improve mobile performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .glass-card {
-  @apply bg-glass-dark backdrop-blur-md rounded-2xl shadow-glass border border-white/10 p-8;
+  @apply bg-glass-dark backdrop-blur-md rounded-2xl shadow-glass border border-white/10 p-4 md:p-8;
 }
 
 .solana-gradient {
@@ -120,7 +123,7 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply bg-gradient-to-r from-stellar-purple to-nebula-pink text-white font-bold py-3 px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-stellar-glow focus:outline-none focus:ring-2 focus:ring-stellar-purple font-orbitron;
+    @apply bg-gradient-to-r from-stellar-purple to-nebula-pink text-white font-bold py-2 md:py-3 px-4 md:px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-stellar-glow focus:outline-none focus:ring-2 focus:ring-stellar-purple font-orbitron text-sm md:text-base;
     box-shadow: 0 0 16px 2px rgba(107, 70, 193, 0.5), 0 0 16px 2px rgba(236, 72, 153, 0.3);
   }
   
@@ -129,11 +132,11 @@ body {
   }
   
   .section-title {
-    @apply text-4xl md:text-5xl font-bold text-star-white mb-4 font-orbitron animate-stellar-pulse;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-star-white mb-4 font-orbitron animate-stellar-pulse;
   }
   
   .section-subtitle {
-    @apply text-xl text-cosmic-cyan mb-8 font-orbitron;
+    @apply text-base md:text-xl text-cosmic-cyan mb-6 md:mb-8 font-orbitron;
   }
   
   .cosmic-glow {
@@ -145,5 +148,32 @@ body {
     background-size: 200px 200px;
     background-repeat: repeat;
     animation: twinkle 3s ease-in-out infinite alternate;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .glass-card {
+      @apply p-4 mx-2;
+    }
+    
+    /* Ensure text doesn't overflow on small screens */
+    * {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+    
+    /* Improve button touch targets on mobile */
+    .btn-primary {
+      min-height: 44px; /* iOS recommended touch target */
+    }
+    
+    /* Better spacing for mobile */
+    .space-y-2 > * + * {
+      margin-top: 0.5rem;
+    }
+    
+    .space-y-3 > * + * {
+      margin-top: 0.75rem;
+    }
   }
 } 
