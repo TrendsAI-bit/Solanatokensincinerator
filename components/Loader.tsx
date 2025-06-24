@@ -1,0 +1,74 @@
+import React from 'react';
+import styled from 'styled-components';
+
+const Loader = () => {
+  return (
+    <StyledWrapper>
+      <div className="loader">
+        <span />
+        <span />
+        <span />
+        <span />
+      </div>
+    </StyledWrapper>
+  );
+}
+
+const StyledWrapper = styled.div`
+  .loader {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(#ee280e, #15a0f7, #6ed15a);
+    animation: animate7712 1.2s linear infinite;
+  }
+
+  @keyframes animate7712 {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loader span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(#ee280e, #15a0f7, #5ad15a);
+  }
+
+  .loader:after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: #333;
+    border: solid #333 10px;
+    border-radius: 50%;
+  }
+
+  .loader span:nth-child(1) {
+    filter: blur(5px);
+  }
+
+  .loader span:nth-child(2) {
+    filter: blur(10px);
+  }
+
+  .loader span:nth-child(3) {
+    filter: blur(25px);
+  }
+
+  .loader span:nth-child(4) {
+    filter: blur(50px);
+  }
+`;
+
+export default Loader; 
