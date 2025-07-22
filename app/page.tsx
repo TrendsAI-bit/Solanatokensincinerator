@@ -174,6 +174,18 @@ export default function Home() {
   const [loadingTokens, setLoadingTokens] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Bonk burn animation overlay state
+  const [showBurnAnimation, setShowBurnAnimation] = useState(false);
+
+  // Show animation when burnResult.success changes to true
+  useEffect(() => {
+    if (burnResult && burnResult.success) {
+      setShowBurnAnimation(true);
+      const timer = setTimeout(() => setShowBurnAnimation(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [burnResult]);
+
   // Calculate ASH preview based on current burn amount
   const calculateAshPreview = () => {
     if (!burnAmount || !parseFloat(burnAmount)) return 0;
@@ -405,21 +417,21 @@ Transaction: https://solscan.io/tx/${txid}
             <header className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 w-full z-20">
               <div className="flex items-center space-x-2 md:space-x-3">
                 <GlitchLogo 
-                  src="/logo.png" 
-                  alt="Stellar Token Burner Logo" 
-                  width={40} 
-                  height={40}
+                  src="/asset/logo.png" 
+                  alt="Bonk Token Burner Logo" 
+                  width={48} 
+                  height={48}
                   glitchInterval={4000}
                   glitchDuration={500}
-                  className="md:w-12 md:h-12"
+                  className="md:w-14 md:h-14 pixel-border pixel-glow"
                 />
                 <GlitchText
                   speed={0.5}
                   enableShadows={true}
                   enableOnHover={true}
-                  className="text-lg md:text-2xl font-bold"
+                  className="text-lg md:text-2xl font-bold text-meteor-orange drop-shadow-pixel-orange"
                 >
-                  Stellar Incinerator
+                  Bonk Token Burner
                 </GlitchText>
               </div>
               <div className="flex items-center space-x-2 md:space-x-4">
@@ -798,6 +810,12 @@ Transaction: https://solscan.io/tx/${txid}
                 </div>
               </div>
             </footer>
+            {/* Burn Animation Overlay */}
+            {showBurnAnimation && (
+              <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-70 animate-fade-in-out pointer-events-none">
+                <img src="/asset/postburnanimation.gif" alt="Bonk Burn Animation" className="w-80 h-80 md:w-[400px] md:h-[400px] pixel-border pixel-glow" style={{imageRendering: 'pixelated'}} />
+              </div>
+            )}
           </motion.main>
         )}
       </AnimatePresence>
