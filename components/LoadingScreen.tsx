@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import Loader from './Loader';
+import Image from 'next/image';
 
 interface LoadingScreenProps {
   onLoadingComplete: () => void;
@@ -41,12 +41,19 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         {/* Logo Container */}
         <div className="relative mb-6 md:mb-8">
-          <Loader />
+          <Image 
+            src="/logo.png" 
+            alt="Bonk Token Burner Logo" 
+            width={96} 
+            height={96} 
+            className="pixel-border pixel-glow mx-auto" 
+            style={{imageRendering: 'pixelated'}}
+          />
         </div>
         
         {/* App Title */}
-        <h1 className="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4 bg-gradient-to-r from-stellar-purple via-cosmic-cyan to-meteor-orange bg-clip-text text-transparent animate-stellar-pulse">
-          STELLAR INCINERATOR
+        <h1 className="text-2xl md:text-4xl font-bold text-center mb-3 md:mb-4 text-meteor-orange drop-shadow-pixel-orange animate-stellar-pulse">
+          BONK TOKEN BURNER
         </h1>
         
         {/* Loading Text */}

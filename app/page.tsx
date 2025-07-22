@@ -417,7 +417,7 @@ Transaction: https://solscan.io/tx/${txid}
             <header className="flex items-center justify-between px-4 md:px-6 py-3 md:py-4 w-full z-20">
               <div className="flex items-center space-x-2 md:space-x-3">
                 <GlitchLogo 
-                  src="/asset/logo.png" 
+                  src="/logo.png" 
                   alt="Bonk Token Burner Logo" 
                   width={48} 
                   height={48}
