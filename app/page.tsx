@@ -454,18 +454,18 @@ Transaction: https://solscan.io/tx/${txid}
             
             {/* Hero Section */}
             <section className="flex flex-col items-center justify-center text-center pt-12 md:pt-24 pb-8 md:pb-12 px-4">
-              <motion.h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-star-white mb-4 font-orbitron animate-stellar-pulse" initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+              <motion.h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bonk-text-orange mb-4 font-orbitron animate-stellar-pulse" initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                 <GlitchText
                   speed={1}
                   enableShadows={true}
                   enableOnHover={true}
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bonk-text-orange"
                 >
-                  Burn Solana Tokens Across the Galaxy
+                  Bonkseus Incinerator
                 </GlitchText>
               </motion.h1>
-              <motion.p className="text-base md:text-xl text-cosmic-cyan mb-6 md:mb-8 font-orbitron max-w-xl mx-auto px-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
-                A stellar, space-inspired dApp for incinerating your Solana tokens. Send tokens to space and get ASH in return. Powered by cosmic energy, secured by the void, visually stunning like nebulae.
+              <motion.p className="text-base md:text-xl bonk-text-orange mb-6 md:mb-8 font-orbitron max-w-xl mx-auto px-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.8 }}>
+                Bonkseus Incinerator: The craziest place to burn your tokens and watch them vanish into the void! Devs & CTOs – burn, share, and earn $ASH at lightspeed. Ready to send your tokens to oblivion? Let’s burn it up!
               </motion.p>
               
               <motion.div className="mt-4 md:mt-6" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, duration: 0.6 }}>

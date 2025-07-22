@@ -12,22 +12,12 @@ module.exports = {
         orbitron: ['Orbitron', 'sans-serif'],
       },
       colors: {
-        // Space-themed colors
-        'cosmic-blue': '#0B1426',
-        'deep-space': '#0A0A23',
-        'stellar-purple': '#6B46C1',
-        'nebula-pink': '#EC4899',
-        'cosmic-cyan': '#06B6D4',
-        'star-white': '#F8FAFC',
-        'meteor-orange': '#F59E0B',
-        'galaxy-indigo': '#4338CA',
-        'void-black': '#000000',
-        'plasma-green': '#10B981',
-        
-        // Legacy Solana colors for compatibility
-        'solana-purple': '#9945FF',
-        'solana-teal': '#14F195',
-        'glass-dark': 'rgba(11, 20, 38, 0.7)',
+        // Bonk-themed colors
+        'bonk-orange': '#F59E0B',
+        'bonk-yellow': '#FFD700',
+        'bonk-brown': '#8B5C2A',
+        'bonk-black': '#000000',
+        'bonk-white': '#FFFFFF',
       },
       backgroundImage: {
         'solana-gradient': 'linear-gradient(90deg, #9945FF 0%, #14F195 100%)',
@@ -41,6 +31,8 @@ module.exports = {
         'stellar-glow': '0 0 16px 2px #6B46C1',
         'nebula-glow': '0 0 16px 2px #EC4899',
         'plasma-glow': '0 0 24px 4px #10B981',
+        'bonk-pixel': '0 0 0 4px #F59E0B, 0 0 8px 2px #FFD700, 0 0 0 8px #8B5C2A',
+        'bonk-glow': '0 0 16px 4px #F59E0B, 0 0 32px 8px #FFD700',
       },
       animation: {
         'pulse-slow': 'pulse 3s ease-in-out infinite',

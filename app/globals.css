@@ -58,29 +58,45 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: #0B1426;
-  background-image: theme('backgroundImage.space-nebula'), theme('backgroundImage.starfield');
+  color: #FFFFFF;
+  background: #18120A;
   min-height: 100vh;
   font-family: 'Orbitron', 'sans-serif';
-  background-size: cover, 200px 200px;
-  background-repeat: no-repeat, repeat;
-  background-attachment: fixed, fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   /* Improve mobile performance */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.glass-card {
-  @apply bg-glass-dark backdrop-blur-md rounded-2xl shadow-glass border border-white/10 p-4 md:p-8;
+.bonk-pixel-border {
+  box-shadow: 0 0 0 4px #F59E0B, 0 0 8px 2px #FFD700, 0 0 0 8px #8B5C2A;
+  border-radius: 8px;
+  border: 2px solid #F59E0B;
 }
-
-.solana-gradient {
-  @apply bg-gradient-to-r from-stellar-purple to-cosmic-cyan;
+.bonk-glow {
+  filter: drop-shadow(0 0 8px #F59E0B) drop-shadow(0 0 16px #FFD700);
 }
-
-.cosmic-border {
-  box-shadow: 0 0 0 2px #6B46C1, 0 0 16px 2px #EC4899;
+.bonk-btn-primary {
+  background: linear-gradient(90deg, #F59E0B 0%, #FFD700 100%);
+  color: #18120A;
+  font-weight: bold;
+  border-radius: 9999px;
+  box-shadow: 0 0 16px 2px #F59E0B99, 0 0 16px 2px #FFD70055;
+  font-family: 'Orbitron', 'sans-serif';
+  transition: all 0.3s;
+}
+.bonk-card {
+  background: #1E1407;
+  border: 2px solid #F59E0B;
+  box-shadow: 0 0 16px 2px #F59E0B55;
+  border-radius: 16px;
+  padding: 2rem;
+}
+.bonk-text-orange {
+  color: #F59E0B;
+  text-shadow: 2px 2px 0 #FFD700, 0 0 8px #F59E0B;
 }
 
 /* Glitch Logo Effect */
@@ -122,14 +138,6 @@ body {
 }
 
 /* Bonk/Pixel theme additions */
-.pixel-border {
-  box-shadow: 0 0 0 4px #F59E0B, 0 0 8px 2px #F59E0B, 0 0 0 8px #000;
-  border-radius: 8px;
-  border: 2px solid #F59E0B;
-}
-.pixel-glow {
-  filter: drop-shadow(0 0 8px #F59E0B) drop-shadow(0 0 16px #F59E0B);
-}
 .drop-shadow-pixel-orange {
   text-shadow: 2px 2px 0 #F59E0B, 0 0 8px #F59E0B;
 }
