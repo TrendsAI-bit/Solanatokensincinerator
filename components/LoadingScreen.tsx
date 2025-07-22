@@ -40,15 +40,17 @@ export default function LoadingScreen({ onLoadingComplete }: LoadingScreenProps)
       {/* Main Loading Content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4">
         {/* Logo Container */}
-        <div className="relative mb-6 md:mb-8">
-          <Image 
-            src="/logo.png" 
-            alt="Bonk Token Burner Logo" 
-            width={96} 
-            height={96} 
-            className="pixel-border pixel-glow mx-auto" 
-            style={{imageRendering: 'pixelated'}}
-          />
+        <div className="relative mb-6 md:mb-8 flex items-center justify-center">
+          <div className="bonk-pixel-border bonk-glow p-3 rounded-xl flex items-center justify-center" style={{boxShadow: '0 0 32px 8px #FFD700, 0 0 16px 4px #F59E0B'}}>
+            <Image 
+              src="/logo.png" 
+              alt="Bonk Token Burner Logo" 
+              width={96} 
+              height={96} 
+              className="mx-auto"
+              style={{imageRendering: 'pixelated'}}
+            />
+          </div>
         </div>
         
         {/* App Title */}

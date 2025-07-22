@@ -154,8 +154,7 @@ body {
 
 @layer components {
   .btn-primary {
-    @apply bg-gradient-to-r from-meteor-orange to-meteor-orange text-black font-bold py-2 md:py-3 px-4 md:px-6 rounded-full transition-all duration-300 shadow-lg hover:shadow-stellar-glow focus:outline-none focus:ring-2 focus:ring-meteor-orange font-orbitron text-sm md:text-base;
-    box-shadow: 0 0 16px 2px #F59E0B99, 0 0 16px 2px #F59E0B55;
+    @apply bonk-btn-primary py-2 md:py-3 px-4 md:px-6 font-orbitron text-sm md:text-base;
   }
   
   .card {
