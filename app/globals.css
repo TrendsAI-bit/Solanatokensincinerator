@@ -99,6 +99,34 @@ body {
   text-shadow: 2px 2px 0 #FFD700, 0 0 8px #F59E0B;
 }
 
+/* Override Solana Wallet Button for Bonk Theme */
+.wallet-adapter-button {
+  background: linear-gradient(90deg, #F59E0B 0%, #FFD700 100%) !important;
+  color: #18120A !important;
+  font-weight: bold !important;
+  border-radius: 9999px !important;
+  box-shadow: 0 0 16px 2px #F59E0B99, 0 0 16px 2px #FFD70055 !important;
+  font-family: 'Orbitron', 'sans-serif' !important;
+  transition: all 0.3s !important;
+  border: none !important;
+}
+
+.wallet-adapter-button:hover {
+  background: linear-gradient(90deg, #FFD700 0%, #F59E0B 100%) !important;
+  box-shadow: 0 0 24px 4px #F59E0B99, 0 0 24px 4px #FFD70055 !important;
+  transform: scale(1.05) !important;
+}
+
+.wallet-adapter-button:not([disabled]):hover {
+  background: linear-gradient(90deg, #FFD700 0%, #F59E0B 100%) !important;
+  box-shadow: 0 0 24px 4px #F59E0B99, 0 0 24px 4px #FFD70055 !important;
+}
+
+.wallet-adapter-button:not([disabled]):focus {
+  background: linear-gradient(90deg, #F59E0B 0%, #FFD700 100%) !important;
+  box-shadow: 0 0 16px 2px #F59E0B99, 0 0 16px 2px #FFD70055 !important;
+}
+
 /* Glitch Logo Effect */
 .glitch-logo {
   animation: logo-glitch 0.1s infinite;
