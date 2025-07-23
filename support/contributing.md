@@ -1,6 +1,6 @@
 # 🤝 Contributing
 
-Welcome to the Stellar Incinerator community! We're excited to have you contribute to the future of token burning.
+Welcome to the Bonkseus Incinerator community! We're excited to have you contribute to the future of token burning.
 
 ## 🌟 Ways to Contribute
 
@@ -42,8 +42,8 @@ Contribute to the codebase:
 ```bash
 # Fork the repository on GitHub
 # Then clone your fork locally
-git clone https://github.com/YOUR_USERNAME/stellar-incinerator.git
-cd stellar-incinerator
+git clone https://github.com/YOUR_USERNAME/bonkseus-incinerator.git
+cd bonkseus-incinerator
 ```
 
 ### 2. Set Up Development Environment
@@ -350,4 +350,4 @@ New contributors can request mentorship:
 
 ---
 
-*Ready to contribute? Join our cosmic community at [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
+*Ready to contribute? Join our bonk community at [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 

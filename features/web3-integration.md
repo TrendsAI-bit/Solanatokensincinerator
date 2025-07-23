@@ -1,6 +1,6 @@
 # 🌐 Web3 Integration
 
-Deep dive into Stellar Incinerator's seamless integration with the Solana blockchain ecosystem.
+Deep dive into Bonkseus Incinerator's seamless integration with the Solana blockchain ecosystem.
 
 ## ⚡ Solana Blockchain Integration
 
@@ -355,4 +355,4 @@ const debugTransaction = async (signature: string) => {
 
 ---
 
-*Experience seamless Web3 integration at [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
+*Experience seamless Web3 integration at [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 

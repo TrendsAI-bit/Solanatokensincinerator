@@ -1,6 +1,6 @@
 # 📚 API Reference
 
-Complete reference guide for all APIs, functions, and interfaces used in Stellar Incinerator.
+Complete reference guide for all APIs, functions, and interfaces used in Bonkseus Incinerator.
 
 ## 🌐 External APIs
 
@@ -731,4 +731,4 @@ class ErrorHandler {
 
 ---
 
-*Complete API documentation for [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
+*Complete API documentation for [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 

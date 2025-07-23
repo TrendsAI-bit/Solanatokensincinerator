@@ -1,6 +1,6 @@
 # 🚀 Quick Start
 
-Get started with Stellar Incinerator in just a few minutes!
+Get started with Bonkseus Incinerator in just a few minutes!
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ Get started with Stellar Incinerator in just a few minutes!
 
 ### 1. 🌐 Visit the Platform
 
-Go to [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)
+Go to [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)
 
 ### 2. 🔗 Connect Your Wallet
 
@@ -45,7 +45,7 @@ Once connected, the platform will automatically:
 - **Start Small**: Try burning a small amount first to get familiar
 - **Check Gas Fees**: Ensure you have enough SOL for transaction fees
 - **Save Transaction Links**: All burns are permanently recorded on Solana
-- **Share Your Burns**: Use the social sharing feature to show off your cosmic burns!
+- **Share Your Burns**: Use the social sharing feature to show off your bonk burns!
 
 ## ⚡ Quick Examples
 

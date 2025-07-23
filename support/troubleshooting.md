@@ -1,6 +1,6 @@
 # 🐛 Troubleshooting
 
-Common issues and their solutions when using Stellar Incinerator.
+Common issues and their solutions when using Bonkseus Incinerator.
 
 ## 🔗 Wallet Connection Issues
 
@@ -169,3 +169,7 @@ When reporting issues, please include:
 - **Test Small Amounts**: Always test with small amounts first
 - **Save Transaction Links**: Keep records of successful burns
 - **Monitor Network Status**: Check Solana network status before large burns 
+
+---
+
+*Need more help? Visit [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app) for support!* 

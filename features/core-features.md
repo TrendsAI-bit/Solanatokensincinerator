@@ -1,6 +1,6 @@
 # ✨ Core Features
 
-Discover the powerful features that make Stellar Incinerator the ultimate token burning platform.
+Discover the powerful features that make Bonkseus Incinerator the ultimate token burning platform.
 
 ## 🔥 Token Burning Engine
 
@@ -177,4 +177,4 @@ ASH Earned = (Tokens Burned ÷ 1,000,000) × 1,000
 
 ---
 
-*Explore all these features and more at [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
+*Explore all these features and more at [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 

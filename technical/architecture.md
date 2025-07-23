@@ -1,6 +1,6 @@
 # 🏗️ Architecture
 
-Comprehensive overview of Stellar Incinerator's technical architecture and system design.
+Comprehensive overview of Bonkseus Incinerator's technical architecture and system design.
 
 ## 🌌 System Overview
 
@@ -23,7 +23,7 @@ Comprehensive overview of Stellar Incinerator's technical architecture and syste
 ### Core Technologies Stack
 - **Frontend Framework**: Next.js 14.2.3 with App Router
 - **Language**: TypeScript for type safety
-- **Styling**: Tailwind CSS with custom space theme
+- **Styling**: Tailwind CSS with custom bonk theme
 - **Animations**: Framer Motion + WebGL effects
 - **Blockchain**: Solana Web3.js + SPL Token libraries
 - **Deployment**: Vercel with global CDN
@@ -485,4 +485,4 @@ const trackPerformance = (operation: string, duration: number) => {
 
 ---
 
-*Explore the technical excellence at [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
+*Master the art of token burning at [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 

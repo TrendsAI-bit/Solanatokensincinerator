@@ -1,38 +1,37 @@
 # 🎨 Visual Experience
 
-Immerse yourself in a stunning space-themed interface with cutting-edge visual effects.
+Immerse yourself in a stunning bonk-themed interface with cutting-edge visual effects.
 
-## 🌌 Space Theme Design
+## 🌌 Bonk Theme Design
 
 ### Cosmic Color Palette
 ```css
---cosmic-blue: #0B1426      /* Deep space background */
---stellar-purple: #6B46C1   /* Nebula highlights */
---nebula-pink: #EC4899      /* Stellar formations */
---cosmic-cyan: #06B6D4      /* Plasma effects */
---star-white: #F8FAFC       /* Bright stars */
---plasma-green: #10B981     /* Energy fields */
+--bonk-orange: #F59E0B      /* Primary bonk orange */
+--bonk-yellow: #FFD700      /* Bright bonk yellow */
+--bonk-brown: #8B5C2A       /* Deep bonk brown */
+--bonk-black: #18120A       /* Dark bonk background */
+--bonk-white: #FFFFFF       /* Pure white text */
 ```
 
 ### Typography
-- **Orbitron Font Family**: Premium space-themed typography
+- **Orbitron Font Family**: Premium bonk-themed typography
 - **6 Font Weights**: Thin, Light, Regular, Medium, Bold, Black
 - **Optimized Rendering**: Perfect clarity at all sizes
 - **Web Font Loading**: Fast, efficient font delivery
 
 ## ✨ Dynamic Visual Effects
 
-### Cosmic Cursor
+### Bonk Cursor
 - **WebGL-Powered**: Hardware-accelerated cursor effects
 - **Real-Time Rendering**: Smooth 60fps performance
-- **Color Mixing**: Dynamic stellar color combinations
+- **Color Mixing**: Dynamic bonk color combinations
 - **Distance-Based Intensity**: Effects respond to cursor movement
 - **Touch Support**: Works on mobile and tablet devices
 
 ### Background Animations
 ```css
-/* Nebula drift animation */
-@keyframes cosmic-drift {
+/* Bonk drift animation */
+@keyframes bonk-drift {
   0% { transform: translateX(-50px) translateY(-30px); }
   50% { transform: translateX(50px) translateY(30px); }
   100% { transform: translateX(-50px) translateY(-30px); }
@@ -46,44 +45,44 @@ Immerse yourself in a stunning space-themed interface with cutting-edge visual e
 ```
 
 ### Glitch Text Effects
-- **Cosmic Glitch Animation**: Dynamic text distortion
+- **Bonk Glitch Animation**: Dynamic text distortion
 - **Multiple Layers**: RGB channel separation effects
 - **Random Timing**: Organic, unpredictable glitches
 - **Performance Optimized**: Smooth animations without lag
 
 ## 🖼️ UI Components
 
-### Space-Themed Elements
+### Bonk-Themed Elements
 
 #### Buttons
-- **Plasma Borders**: Glowing, animated button borders
-- **Hover Effects**: Stellar pulse animations on hover
-- **Loading States**: Cosmic spinning indicators
-- **Disabled States**: Dimmed stellar effects
+- **Bonk Borders**: Glowing, animated button borders
+- **Hover Effects**: Bonk pulse animations on hover
+- **Loading States**: Bonk spinning indicators
+- **Disabled States**: Dimmed bonk effects
 
 #### Cards & Panels
-- **Glass Morphism**: Semi-transparent cosmic panels
+- **Glass Morphism**: Semi-transparent bonk panels
 - **Backdrop Blur**: Realistic depth of field effects
-- **Gradient Borders**: Stellar energy borders
-- **Shadow Effects**: Deep space depth illusion
+- **Gradient Borders**: Bonk energy borders
+- **Shadow Effects**: Deep bonk depth illusion
 
 #### Form Elements
-- **Cosmic Input Fields**: Space-themed form styling
-- **Floating Labels**: Stellar label animations
-- **Validation States**: Color-coded cosmic feedback
-- **Progress Indicators**: Stellar progress bars
+- **Bonk Input Fields**: Bonk-themed form styling
+- **Floating Labels**: Bonk label animations
+- **Validation States**: Color-coded bonk feedback
+- **Progress Indicators**: Bonk progress bars
 
 ### Interactive Elements
 
 #### Token Selector
-- **Dropdown Animation**: Smooth cosmic slide effects
+- **Dropdown Animation**: Smooth bonk slide effects
 - **Token Icons**: High-quality token logos
 - **Balance Display**: Real-time balance updates
 - **Search Functionality**: Instant token filtering
 
 #### Burn Interface
 - **Amount Input**: Large, clear input field
-- **MAX Button**: Prominent stellar-styled button
+- **MAX Button**: Prominent bonk-styled button
 - **ASH Preview**: Real-time reward calculations
 - **Burn Button**: Dramatic incineration styling
 
@@ -97,15 +96,15 @@ Immerse yourself in a stunning space-themed interface with cutting-edge visual e
   to { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
 }
 
-/* Stellar pulse */
-@keyframes stellar-pulse {
+/* Bonk pulse */
+@keyframes bonk-pulse {
   0%, 100% { transform: scale(1); opacity: 0.8; }
   50% { transform: scale(1.05); opacity: 1; }
 }
 ```
 
 ### Framer Motion Integration
-- **Page Transitions**: Smooth cosmic page changes
+- **Page Transitions**: Smooth bonk page changes
 - **Component Animations**: Entrance and exit effects
 - **Gesture Recognition**: Touch and mouse interactions
 - **Physics-Based**: Realistic motion dynamics
@@ -240,4 +239,4 @@ const fragmentShader = `
 
 ---
 
-*Experience the cosmic visual journey at [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
+*Experience the bonk visual journey at [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 

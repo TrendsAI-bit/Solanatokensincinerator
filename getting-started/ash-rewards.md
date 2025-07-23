@@ -1,6 +1,6 @@
 # 💰 ASH Reward System
 
-Understanding how ASH rewards work and their utility in the Stellar Incinerator ecosystem.
+Understanding how ASH rewards work and their utility in the Bonkseus Incinerator ecosystem.
 
 ## 🔥 How ASH is Earned
 

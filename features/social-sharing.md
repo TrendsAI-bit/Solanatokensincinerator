@@ -1,6 +1,6 @@
 # 📱 Social Sharing
 
-Share your cosmic burns with the galaxy and celebrate your token incineration achievements!
+Share your bonk burns with the community and celebrate your token incineration achievements!
 
 ## 🐦 Twitter/X Integration
 
@@ -9,32 +9,32 @@ Transform your burns into engaging social media posts with our integrated Twitte
 
 ### Share Message Format
 ```
-🔥 Just incinerated [amount] [token] tokens across the galaxy! 
-✨ Earned [ash_amount] ASH in the process! 🌌 
+🔥 Just incinerated [amount] [token] tokens across the bonkverse! 
+✨ Earned [ash_amount] ASH in the process! 🚀 
 
 Transaction: https://solscan.io/tx/[signature]
 
-#StellarIncinerator #Solana #TokenBurn #SpaceThemed #DeFi
+#BonkseusIncinerator #Solana #TokenBurn #Bonk #DeFi
 ```
 
 ### Dynamic Content Generation
 - **Token Information**: Automatically includes token symbol and amount
 - **ASH Rewards**: Shows exact ASH earned from the burn
 - **Transaction Link**: Direct link to Solscan for verification
-- **Cosmic Emojis**: Space-themed emojis for visual appeal
-- **Relevant Hashtags**: Trending crypto and space hashtags
+- **Bonk Emojis**: Bonk-themed emojis for visual appeal
+- **Relevant Hashtags**: Trending crypto and bonk hashtags
 
 ## 🚀 Sharing Features
 
 ### Instant Share Button
 ```typescript
 const shareOnTwitter = (burnResult: BurnResult) => {
-  const message = `🔥 Just incinerated ${burnResult.amountBurned} ${burnResult.tokenSymbol} tokens across the galaxy! 
-✨ Earned ${burnResult.ashEarned} ASH in the process! 🌌 
+  const message = `🔥 Just incinerated ${burnResult.amountBurned} ${burnResult.tokenSymbol} tokens across the bonkverse! 
+✨ Earned ${burnResult.ashEarned} ASH in the process! 🚀 
 
 Transaction: https://solscan.io/tx/${burnResult.txid}
 
-#StellarIncinerator #Solana #TokenBurn #SpaceThemed #DeFi`;
+#BonkseusIncinerator #Solana #TokenBurn #Bonk #DeFi`;
 
   const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
   window.open(twitterUrl, '_blank', 'width=550,height=420');
@@ -66,12 +66,12 @@ const copyShareMessage = async (burnResult: BurnResult) => {
 
 ### Standard Burn Share
 ```
-🔥 Just incinerated 1,000,000 BONK tokens across the galaxy! 
-✨ Earned 1,000 ASH in the process! 🌌 
+🔥 Just incinerated 1,000,000 BONK tokens across the bonkverse! 
+✨ Earned 1,000 ASH in the process! 🚀 
 
 Transaction: https://solscan.io/tx/[signature]
 
-#StellarIncinerator #Solana #TokenBurn #BONK #DeFi
+#BonkseusIncinerator #Solana #TokenBurn #BONK #DeFi
 ```
 
 ### Milestone Achievement
@@ -80,18 +80,18 @@ Transaction: https://solscan.io/tx/[signature]
 🔥 Just reached 10,000 ASH by burning tokens! 
 ⚡ Silver Tier Incinerator status unlocked! 🥈
 
-Join the cosmic burn revolution!
-#StellarIncinerator #Milestone #SilverTier #Solana
+Join the bonk burn revolution!
+#BonkseusIncinerator #Milestone #SilverTier #Solana
 ```
 
 ### Large Burn Celebration
 ```
 🌟 MASSIVE BURN ALERT! 🌟
-🔥 Incinerated 10,000,000 tokens in one cosmic event! 
+🔥 Incinerated 10,000,000 tokens in one bonk event! 
 💎 Earned 10,000 ASH - that's Gold Tier status! 🥇
 
-The galaxy thanks you for your service! 🌌
-#StellarIncinerator #MassiveBurn #GoldTier #Solana
+The bonkverse thanks you for your service! 🚀
+#BonkseusIncinerator #MassiveBurn #GoldTier #Solana
 ```
 
 ## 📊 Social Analytics
@@ -343,4 +343,4 @@ const shareOnMobile = async (burnResult: BurnResult) => {
 
 ---
 
-*Join the cosmic community and share your burns at [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
+*Join the bonk community and share your burns at [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 

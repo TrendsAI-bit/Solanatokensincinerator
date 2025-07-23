@@ -1,6 +1,6 @@
 # ❓ FAQ
 
-Frequently asked questions about Stellar Incinerator and token burning.
+Frequently asked questions about Bonkseus Incinerator and token burning.
 
 ## 🔥 Token Burning Basics
 
@@ -56,7 +56,7 @@ Yes! Higher tiers receive bonus multipliers:
 ## 🔗 Wallet & Technical
 
 ### Which wallets are supported?
-Stellar Incinerator supports all major Solana wallets:
+Bonkseus Incinerator supports all major Solana wallets:
 - **Phantom** (recommended)
 - **Solflare**
 - **Ledger** hardware wallets
@@ -104,7 +104,7 @@ Unfortunately, token burns cannot be undone. Always:
 - **Verify** transaction details in your wallet
 
 ### Are there any fees besides SOL gas fees?
-No, Stellar Incinerator doesn't charge any platform fees. You only pay:
+No, Bonkseus Incinerator doesn't charge any platform fees. You only pay:
 - **Solana network fees** (typically 0.000005 SOL)
 - **No hidden charges**
 - **No subscription fees**
@@ -112,12 +112,12 @@ No, Stellar Incinerator doesn't charge any platform fees. You only pay:
 
 ## 🎨 Platform Features
 
-### What are the cosmic visual effects?
+### What are the bonk visual effects?
 The platform features:
 - **WebGL cursor effects** that follow your mouse
-- **Space-themed animations** throughout the interface
+- **Bonk-themed animations** throughout the interface
 - **Glitch text effects** on headings
-- **Cosmic color palette** with stellar themes
+- **Bonk color palette** with orange and yellow themes
 - **Responsive design** that works on all devices
 
 ### Can I use this on mobile?
@@ -132,7 +132,7 @@ After each successful burn:
 1. Click the **"Share on X"** button
 2. Or use **"Copy Message"** for other platforms
 3. Pre-filled messages include burn details and transaction links
-4. Cosmic-themed hashtags are automatically added
+4. Bonk-themed hashtags are automatically added
 
 ## 📊 Analytics & History
 
@@ -239,4 +239,4 @@ Yes! Join our growing community:
 
 ---
 
-*Still have questions? Join our community at [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
+*Still have questions? Join our community at [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 

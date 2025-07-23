@@ -1,6 +1,6 @@
 # 🛠️ Development Setup
 
-Complete guide for setting up your development environment and contributing to Stellar Incinerator.
+Complete guide for setting up your development environment and contributing to Bonkseus Incinerator.
 
 ## 🚀 Quick Start
 
@@ -13,8 +13,8 @@ Complete guide for setting up your development environment and contributing to S
 ### Environment Setup
 ```bash
 # Clone the repository
-git clone https://github.com/stellar-incinerator/stellar-incinerator.git
-cd stellar-incinerator
+git clone https://github.com/bonkseus-incinerator/bonkseus-incinerator.git
+cd bonkseus-incinerator
 
 # Install dependencies
 npm install
@@ -68,7 +68,7 @@ NEXT_PUBLIC_SENTRY_DSN=your_sentry_dsn
 ## 🏗️ Project Structure
 
 ```
-stellar-incinerator/
+bonkseus-incinerator/
 ├── app/                    # Next.js App Router
 │   ├── layout.tsx         # Root layout
 │   ├── page.tsx           # Home page
@@ -519,8 +519,8 @@ const useDebounce = (value: string, delay: number) => {
 ### Community
 - [Solana Discord](https://discord.gg/solana)
 - [Next.js Discord](https://discord.gg/nextjs)
-- [Project GitHub](https://github.com/stellar-incinerator)
+- [Project GitHub](https://github.com/bonkseus-incinerator)
 
 ---
 
-*Start building the future of token burning at [Stellar Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
+*Start building the future of token burning at [Bonkseus Incinerator](https://solanatokensincinerator-evd2ucu25-devais-projects-c74be0cf.vercel.app)!* 
