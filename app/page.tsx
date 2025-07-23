@@ -406,7 +406,7 @@ Transaction: https://solscan.io/tx/${txid}
             <SplashCursor />
             
             {/* Bonk Galaxy Background */}
-            <div className="fixed inset-0 -z-10">
+            <div className="fixed inset-0 -z-10 pointer-events-auto">
               <Galaxy 
                 hueShift={30}
                 density={0.8}
