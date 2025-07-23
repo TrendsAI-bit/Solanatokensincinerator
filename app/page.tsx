@@ -415,7 +415,7 @@ Transaction: https://solscan.io/tx/${txid}
                 twinkleIntensity={0.5}
                 mouseInteraction={true}
                 mouseRepulsion={true}
-                repulsionStrength={1.5}
+                repulsionStrength={8}
                 rotationSpeed={0.05}
                 transparent={true}
                 className="w-full h-full"
