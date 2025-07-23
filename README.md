@@ -1,8 +1,8 @@
-# 🌌 Stellar Incinerator - The Ultimate Solana Token Burning Platform
+# Bonkseus Incinerator - The Ultimate Solana Token Burning Platform
 
-> **Transform your unused tokens into cosmic energy across the galaxy**
+> **Transform your unused tokens into bonk energy and watch them vanish into the void!**
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-repo/stellar-incinerator)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/your-repo/bonkseus-incinerator)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Next.js](https://img.shields.io/badge/Next.js-14.2.3-black)](https://nextjs.org/)
 [![Solana](https://img.shields.io/badge/Solana-Web3.js-9945FF)](https://solana.com/)
@@ -22,12 +22,12 @@
 
 ## 🌟 Overview
 
-**Stellar Incinerator** is a cutting-edge decentralized application (dApp) built on the Solana blockchain that allows users to permanently burn SPL tokens in exchange for ASH rewards. With a stunning space-themed interface and real-time cosmic effects, it provides an immersive experience for token deflation and reward accumulation.
+**Bonkseus Incinerator** is a cutting-edge decentralized application (dApp) built on the Solana blockchain that allows users to permanently burn SPL tokens in exchange for ASH rewards. With a stunning bonk-themed interface and real-time pixel effects, it provides an immersive experience for token deflation and reward accumulation.
 
 ### Key Highlights
 - 🔥 **Permanent Token Burning**: Send tokens to the void forever
 - ⚡ **ASH Reward System**: Earn proportional rewards for burning tokens
-- 🌌 **Space-Themed UI**: Beautiful cosmic interface with WebGL effects
+- 🐕 **Bonk-Themed UI**: Beautiful pixel-art interface with neon effects
 - 📊 **Real-Time Analytics**: Track burns, rewards, and transaction history
 - 🐦 **Social Integration**: Share burns on X (Twitter) with one click
 - 🔗 **Solscan Integration**: Verify all transactions on-chain
@@ -35,7 +35,7 @@
 ## ✨ Features
 
 ### 🎨 Visual Experience
-- **Cosmic Cursor Effects**: WebGL-powered cursor trails with stellar colors
+- **Bonk Cursor Effects**: WebGL-powered cursor trails with bonk colors
 - **Glitch Text Animations**: Dynamic text effects throughout the interface
 - **Space Background**: Animated nebula patterns and starfield effects
 - **Orbitron Font**: Premium space-themed typography with 6 font weights

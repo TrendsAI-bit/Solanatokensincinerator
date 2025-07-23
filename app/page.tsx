@@ -469,9 +469,9 @@ Transaction: https://solscan.io/tx/${txid}
               </motion.p>
               
               <motion.div className="mt-4 md:mt-6" initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.4, duration: 0.6 }}>
-                <WalletMultiButton className="btn-primary text-base md:text-lg px-6 md:px-8 py-3 md:py-4" />
+                <WalletMultiButton className="bonk-btn-primary text-base md:text-lg px-6 md:px-8 py-3 md:py-4" />
                 {connected && balance !== null && (
-                  <span className="block mt-2 text-cosmic-cyan font-semibold text-sm md:text-base">Balance: {balance.toFixed(4)} SOL</span>
+                  <span className="block mt-2 bonk-text-orange font-semibold text-sm md:text-base">Balance: {balance.toFixed(4)} SOL</span>
                 )}
               </motion.div>
             </section>
@@ -716,16 +716,16 @@ Transaction: https://solscan.io/tx/${txid}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
                 <motion.div 
-                  className="bg-gradient-to-br from-stellar-purple/10 to-cosmic-cyan/15 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-stellar-purple/20 flex items-center gap-3 md:gap-4 hover:border-stellar-purple/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full"
+                  className="bg-gradient-to-br from-bonk-orange/10 to-bonk-yellow/15 backdrop-blur-xl rounded-2xl p-4 md:p-6 border border-bonk-orange/20 flex items-center gap-3 md:gap-4 hover:border-bonk-orange/40 transition-all duration-300 hover:scale-105 cursor-pointer group w-full"
                   whileHover={{ y: -5 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <div className="bg-gradient-to-br from-stellar-purple/20 to-cosmic-cyan/20 p-2 md:p-3 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                    <Share className="text-cosmic-cyan animate-twinkle group-hover:animate-pulse" size={24} />
+                  <div className="bg-gradient-to-br from-bonk-orange/20 to-bonk-yellow/20 p-2 md:p-3 rounded-xl group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                    <Share className="bonk-text-orange animate-twinkle group-hover:animate-pulse" size={24} />
                   </div>
                   <div className="text-left min-w-0 flex-1">
-                    <div className="text-base md:text-lg font-bold text-star-white group-hover:text-cosmic-cyan transition-colors duration-300 leading-tight">Share to X Instantly</div>
-                    <div className="text-xs md:text-sm text-cosmic-cyan/80 group-hover:text-cosmic-cyan transition-colors duration-300 leading-tight mt-1">Auto-generate cosmic burn posts with one click</div>
+                    <div className="text-base md:text-lg font-bold text-white group-hover:text-bonk-orange transition-colors duration-300 leading-tight">Share to X Instantly</div>
+                    <div className="text-xs md:text-sm bonk-text-orange/80 group-hover:text-bonk-orange transition-colors duration-300 leading-tight mt-1">Auto-generate bonk burn posts with one click</div>
                   </div>
                 </motion.div>
                 
@@ -786,13 +786,13 @@ Transaction: https://solscan.io/tx/${txid}
             <footer className="py-8 md:py-10 px-4 text-center text-gray-400 text-xs md:text-sm">
               <div className="flex flex-col items-center justify-center gap-2 md:gap-3">
                 <div className="flex flex-col md:flex-row items-center justify-center gap-2">
-                  <span>Powered by <span className="text-stellar-purple font-bold">cosmic energy</span>. Built for <span className="text-cosmic-cyan font-bold">stellar exploration</span>.</span>
+                  <span>Powered by <span className="bonk-text-orange font-bold">cosmic energy</span>. Built for <span className="bonk-text-orange font-bold">bonk incineration</span>.</span>
                   <span className="hidden md:inline">|</span>
                   <a 
                     href="https://trendsai.gitbook.io/stellar-incinerator/" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="text-cosmic-cyan hover:text-stellar-purple transition-colors font-semibold flex items-center gap-1 z-50 relative cursor-pointer bg-cosmic-blue/20 px-2 py-1 rounded border border-cosmic-cyan/30 hover:border-stellar-purple/50 text-xs md:text-sm"
+                    className="bonk-text-orange hover:text-bonk-yellow transition-colors font-semibold flex items-center gap-1 z-50 relative cursor-pointer bg-bonk-black/20 px-2 py-1 rounded border border-bonk-orange/30 hover:border-bonk-yellow/50 text-xs md:text-sm"
                     onClick={(e) => {
                       e.stopPropagation();
                       window.open('https://trendsai.gitbook.io/stellar-incinerator/', '_blank', 'noopener,noreferrer');
@@ -806,7 +806,7 @@ Transaction: https://solscan.io/tx/${txid}
                 <div className="flex flex-col md:flex-row items-center justify-center gap-2">
                   <span>Contract: <span className="text-gray-400 break-all">0x1234...5678</span></span>
                   <span className="hidden md:inline">|</span>
-                  <span>© 2025 Stellar Incinerator. All rights reserved.</span>
+                  <span>© 2025 Bonkseus Incinerator. All rights reserved.</span>
                 </div>
               </div>
             </footer>
