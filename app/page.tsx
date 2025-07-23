@@ -20,6 +20,7 @@ import GlitchText from '../components/GlitchText';
 import GlitchLogo from '../components/GlitchLogo';
 import SplashCursor from '../components/SplashCursor';
 import LoadingScreen from '../components/LoadingScreen';
+import Galaxy from '../components/Galaxy';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -404,9 +405,22 @@ Transaction: https://solscan.io/tx/${txid}
             {/* Cosmic Cursor Effect */}
             <SplashCursor />
             
-            {/* Animated space background */}
-            <div className="fixed inset-0 -z-10 bg-space-nebula animate-cosmic-drift" />
-            <div className="fixed inset-0 -z-5 starfield-bg opacity-30" />
+            {/* Bonk Galaxy Background */}
+            <div className="fixed inset-0 -z-10">
+              <Galaxy 
+                hueShift={30}
+                density={0.8}
+                starSpeed={0.3}
+                glowIntensity={0.4}
+                twinkleIntensity={0.5}
+                mouseInteraction={true}
+                mouseRepulsion={true}
+                repulsionStrength={1.5}
+                rotationSpeed={0.05}
+                transparent={true}
+                className="w-full h-full"
+              />
+            </div>
             
             {/* Solana watermark */}
             <div className="fixed bottom-0 right-0 opacity-10 pointer-events-none select-none z-0">
